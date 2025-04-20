@@ -12,8 +12,8 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #fdfdfd;
-      color: #1e1e1e;
+      background-color: #f9f9f9;
+      color: #222;
       text-align: center;
       padding: 40px;
     }
@@ -21,7 +21,7 @@
       font-size: 2rem;
       color: #0a3d62;
     }
-    button {
+    .button {
       padding: 12px 20px;
       margin: 10px;
       border: none;
@@ -31,33 +31,31 @@
       border-radius: 6px;
       cursor: pointer;
     }
-    button:hover {
+    .button:hover {
       background: #1565c0;
     }
     input[type="file"] {
-      padding: 10px;
       margin: 10px;
       font-size: 1rem;
     }
     table {
-      width: 100%;
-      max-width: 800px;
+      width: 90%;
       margin: 20px auto;
       border-collapse: collapse;
       background: white;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     th, td {
-      padding: 12px;
-      border-bottom: 1px solid #ddd;
+      padding: 10px;
+      border: 1px solid #ccc;
     }
     th {
-      background: #f1f1f1;
+      background: #eee;
     }
-    .status-success {
+    .success {
       color: green;
     }
-    .status-failed {
+    .failed {
       color: red;
     }
   </style>
@@ -65,13 +63,18 @@
 <body>
   <h1>SANCHAY SPL Token Airdrop Tool</h1>
 
-  <button id="connectBtn">Connect Phantom Wallet</button><br/>
-  <input type="file" id="csvFile" accept=".csv" />
-  <button id="startBtn">Start Airdrop</button>
+  <button class="button" id="connectBtn">Connect Phantom Wallet</button>
+  <button class="button" id="loadCsvBtn">Load CSV</button>
+  <input type="file" id="csvFile" accept=".csv" style="display:none;" />
+  <button class="button" id="startBtn">Start Airdrop</button>
 
   <table id="airdropTable" style="display:none;">
     <thead>
-      <tr><th>Wallet</th><th>Amount</th><th>Status</th></tr>
+      <tr>
+        <th>Wallet Address</th>
+        <th>Amount</th>
+        <th>Status</th>
+      </tr>
     </thead>
     <tbody></tbody>
   </table>
