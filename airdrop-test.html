@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SCY Airdrop Simple Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+  </head>
+  <body>
+    <h2>SANCHAY Airdrop Connect Test</h2>
+    <button id="connectBtn">Connect Wallet</button>
+    <p id="status">Not connected</p>
+
+    <script>
+      window.onload = function () {
+        const btn = document.getElementById("connectBtn");
+        btn.onclick = async () => {
+          try {
+            const resp = await window.solana.connect();
+            document.getElementById("status").textContent = "Connected: " + resp.publicKey.toString();
+          } catch (e) {
+            document.getElementById("status").textContent = "Error: " + e.message;
+          }
+        };
+      };
+    </script>
+  </body>
+</html>
