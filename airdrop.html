@@ -5,14 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SANCHAY Airdrop Tool</title>
 
-  <!-- Phantom & Solana Libraries -->
+  <!-- Solana Web3 & SPL Token Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.73.2/lib/index.iife.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@solana/spl-token@0.2.0/lib/index.iife.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fdfdfd;
+      color: #1e1e1e;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #0a3d62;
+    }
+    button {
+      padding: 12px 20px;
+      margin: 10px;
+      border: none;
+      background: #1e90ff;
+      color: white;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1565c0;
+    }
+    input[type="file"] {
+      padding: 10px;
+      margin: 10px;
+      font-size: 1rem;
+    }
+    table {
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background: #f1f1f1;
+    }
+    .status-success {
+      color: green;
+    }
+    .status-failed {
+      color: red;
+    }
+  </style>
 </head>
 <body>
-  <h1>SANCHAY Airdrop Tool</h1>
+  <h1>SANCHAY SPL Token Airdrop Tool</h1>
 
-  <button id="connectBtn">Connect Phantom Wallet</button>
+  <button id="connectBtn">Connect Phantom Wallet</button><br/>
   <input type="file" id="csvFile" accept=".csv" />
   <button id="startBtn">Start Airdrop</button>
 
@@ -23,7 +76,7 @@
     <tbody></tbody>
   </table>
 
-  <!-- Link JS logic -->
+  <!-- Custom Logic -->
   <script src="airdrop.js"></script>
 </body>
 </html>
