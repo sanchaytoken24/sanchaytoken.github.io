@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SANCHAY Airdrop Final</title>
+  <title>SANCHAY Airdrop Debug v2</title>
   <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@latest/lib/index.iife.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@solana/spl-token@0.3.5/lib/index.iife.min.js"></script>
   <style>
@@ -14,7 +14,7 @@
   </style>
 </head>
 <body>
-  <h1>SANCHAY Airdrop Tool (Final)</h1>
+  <h1>SANCHAY Airdrop Tool (Debug Mode)</h1>
   <button id="connect">Connect Phantom</button>
   <p id="status">Wallet not connected</p>
   <input type="file" id="fileInput" accept=".csv">
@@ -43,7 +43,10 @@
       let connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl("mainnet-beta"));
       let airdropList = [];
 
-      const log = (msg) => (logBox.textContent += msg + "\n");
+      const log = (msg) => {
+        console.log(msg);
+        logBox.textContent += msg + "\n";
+      };
 
       connectBtn.onclick = async () => {
         try {
@@ -71,7 +74,7 @@
             row.insertCell(1).textContent = addr;
             row.insertCell(2).textContent = amt;
             row.insertCell(3).textContent = "Pending";
-            return { address: addr, amount: parseFloat(amt), row };
+            return { address: addr.trim(), amount: parseFloat(amt), row };
           });
           log("Loaded " + airdropList.length + " entries.");
         };
@@ -80,7 +83,10 @@
 
       startBtn.onclick = async () => {
         if (!wallet) return alert("Connect wallet first");
+
+        log("Preparing to fetch source token account...");
         const fromTokenAcc = await splToken.getAssociatedTokenAddress(MINT, wallet);
+        log("Source Token Account: " + fromTokenAcc.toBase58());
 
         for (let i = 0; i < airdropList.length; i++) {
           const entry = airdropList[i];
@@ -91,22 +97,25 @@
 
             const toInfo = await connection.getAccountInfo(toTokenAcc);
             if (!toInfo) {
+              log(`Creating ATA for ${entry.address}`);
               tx.add(splToken.createAssociatedTokenAccountInstruction(wallet, toTokenAcc, recipient, MINT));
             }
 
+            log(`Adding transfer: ${entry.amount} to ${entry.address}`);
             tx.add(splToken.createTransferInstruction(fromTokenAcc, toTokenAcc, wallet, entry.amount));
             tx.feePayer = wallet;
             tx.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
 
             const signed = await provider.signTransaction(tx);
             const sig = await connection.sendRawTransaction(signed.serialize());
-            await connection.confirmTransaction(sig);
+            log(`Tx submitted: ${sig}`);
 
+            await connection.confirmTransaction(sig);
             entry.row.cells[3].textContent = "Sent";
-            log(`Sent ${entry.amount} SCY to ${entry.address}`);
+            log(`✅ Success: ${entry.amount} SCY sent to ${entry.address}`);
           } catch (e) {
             entry.row.cells[3].textContent = "Failed";
-            log(`Failed ${entry.address}: ${e.message}`);
+            log(`❌ Failed ${entry.address}: ${e.message}`);
           }
         }
       };
