@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SANCHAY Airdrop Tool V2</title>
+  <title>SANCHAY Airdrop Tool V3</title>
   <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/spl-token@0.3.5/lib/index.iife.min.js"></script>
   <style>
     body { font-family: 'Segoe UI', sans-serif; background: #fdf6ec; padding: 20px; text-align: center; }
     h1 { color: #e79a00; }
@@ -16,7 +17,7 @@
   </style>
 </head>
 <body>
-  <h1>SANCHAY Airdrop Tool V2</h1>
+  <h1>SANCHAY Airdrop Tool V3</h1>
   <p>Connect Phantom Wallet and send SCY tokens in batch with full control</p>
 
   <input type="file" id="fileInput" accept=".csv" />
@@ -95,25 +96,55 @@
 
     async function startTransfers() {
       if (!wallet) return alert("Connect wallet first");
+      const token = new splToken.Token(connection, SCY_MINT, splToken.TOKEN_PROGRAM_ID, wallet);
+
       for (let i = 0; i < entries.length; i++) {
         const e = entries[i];
         if (e.skip || e.status !== 'Pending') continue;
         try {
-          const tx = new solanaWeb3.Transaction();
-          const senderATA = await findATA(wallet, SCY_MINT);
           const recipient = new solanaWeb3.PublicKey(e.address);
-          const recipientATA = await findATA(recipient, SCY_MINT);
 
-          const ix = solanaWeb3.Token.createTransferInstruction(
-            solanaWeb3.TOKEN_PROGRAM_ID,
-            senderATA,
-            recipientATA,
-            wallet,
-            [],
-            e.amount
+          const senderATA = await splToken.Token.getAssociatedTokenAddress(
+            splToken.ASSOCIATED_TOKEN_PROGRAM_ID,
+            splToken.TOKEN_PROGRAM_ID,
+            SCY_MINT,
+            wallet
           );
 
-          tx.add(ix);
+          const recipientATA = await splToken.Token.getAssociatedTokenAddress(
+            splToken.ASSOCIATED_TOKEN_PROGRAM_ID,
+            splToken.TOKEN_PROGRAM_ID,
+            SCY_MINT,
+            recipient
+          );
+
+          const receiverInfo = await connection.getAccountInfo(recipientATA);
+          const tx = new solanaWeb3.Transaction();
+
+          if (!receiverInfo) {
+            tx.add(
+              splToken.Token.createAssociatedTokenAccountInstruction(
+                wallet,
+                recipientATA,
+                recipient,
+                SCY_MINT,
+                splToken.TOKEN_PROGRAM_ID,
+                splToken.ASSOCIATED_TOKEN_PROGRAM_ID
+              )
+            );
+          }
+
+          tx.add(
+            splToken.Token.createTransferInstruction(
+              splToken.TOKEN_PROGRAM_ID,
+              senderATA,
+              recipientATA,
+              wallet,
+              [],
+              e.amount
+            )
+          );
+
           tx.feePayer = wallet;
           const { blockhash } = await connection.getRecentBlockhash();
           tx.recentBlockhash = blockhash;
@@ -128,14 +159,6 @@
         }
         document.getElementById(`status-${i}`).textContent = e.status;
       }
-    }
-
-    async function findATA(owner, mint) {
-      return (await solanaWeb3.PublicKey.findProgramAddress([
-        owner.toBuffer(),
-        solanaWeb3.TOKEN_PROGRAM_ID.toBuffer(),
-        mint.toBuffer()
-      ], new solanaWeb3.PublicKey("ATokenGPvbdGVxr1b2hvZbsiqW5aVAkE79tCkq7zv9z3")).then(r => r[0]));
     }
 
     function log(msg) {
