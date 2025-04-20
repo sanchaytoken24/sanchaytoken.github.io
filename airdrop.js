@@ -3,64 +3,54 @@ const { getAssociatedTokenAddress, createTransferInstruction } = window.splToken
 
 const connection = new Connection(clusterApiUrl("mainnet-beta"), "confirmed");
 let wallet = null;
-const tokenMintAddress = new PublicKey("EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD"); // SCY Mint
+const tokenMintAddress = new PublicKey("EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD");
 
-// Connect Phantom
-document.getElementById("connectBtn").onclick = async () => {
+document.getElementById("connectWallet").onclick = async () => {
   if (window.solana && window.solana.isPhantom) {
     try {
-      const response = await window.solana.connect();
+      const res = await window.solana.connect();
       wallet = window.solana;
-      alert("Connected: " + wallet.publicKey.toString());
+      alert("Connected: " + res.publicKey.toString());
     } catch (err) {
-      alert("Connection failed.");
+      alert("Wallet connection failed");
     }
   } else {
     alert("Phantom Wallet not found.");
   }
 };
 
-// Load CSV Button triggers file input
-document.getElementById("loadCsvBtn").onclick = () => {
-  document.getElementById("csvFile").click();
-};
-
-// Read CSV and populate table
-document.getElementById("csvFile").addEventListener("change", function (e) {
-  const file = e.target.files[0];
+document.getElementById("csvFile").addEventListener("change", function (event) {
+  const file = event.target.files[0];
   const reader = new FileReader();
+  const tbody = document.querySelector("#airdropTable tbody");
 
-  reader.onload = function (event) {
-    const lines = event.target.result.split("\n");
-    const tableBody = document.querySelector("#airdropTable tbody");
-    tableBody.innerHTML = "";
-
-    lines.forEach(line => {
+  reader.onload = function (e) {
+    const lines = e.target.result.split("\n");
+    tbody.innerHTML = "";
+    for (let line of lines) {
       const [address, amount] = line.split(",");
       if (address && amount) {
-        const row = tableBody.insertRow();
+        const row = tbody.insertRow();
         row.insertCell(0).innerText = address.trim();
         row.insertCell(1).innerText = amount.trim();
         row.insertCell(2).innerText = "Pending";
       }
-    });
-
+    }
     document.getElementById("airdropTable").style.display = "table";
   };
 
   reader.readAsText(file);
 });
 
-// Start Airdrop Logic
-document.getElementById("startBtn").onclick = async () => {
+document.getElementById("startAirdrop").onclick = async () => {
   if (!wallet || !wallet.publicKey) {
-    alert("Please connect Phantom wallet first.");
+    alert("Please connect your wallet.");
     return;
   }
 
-  const tableRows = document.querySelectorAll("#airdropTable tbody tr");
+  const rows = document.querySelectorAll("#airdropTable tbody tr");
 
-  for (let row of tableRows) {
+  for (let row of rows) {
     const address = row.cells[0].innerText.trim();
     const amount = parseFloat(row.cells[1].innerText.trim());
     const recipient = new PublicKey(address);
@@ -77,13 +67,13 @@ document.getElementById("startBtn").onclick = async () => {
         amount * 1e6
       );
 
-      const transaction = new Transaction().add(instruction);
-      const { signature } = await wallet.signAndSendTransaction(transaction);
+      const tx = new Transaction().add(instruction);
+      const { signature } = await wallet.signAndSendTransaction(tx);
       await connection.confirmTransaction(signature, "confirmed");
 
       row.cells[2].innerHTML = '<span class="success">Success</span>';
-    } catch (error) {
-      console.error("Airdrop failed:", error);
+    } catch (err) {
+      console.error("Airdrop failed:", err);
       row.cells[2].innerHTML = '<span class="failed">Failed</span>';
     }
   }
