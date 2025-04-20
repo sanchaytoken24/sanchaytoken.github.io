@@ -1,94 +1,85 @@
-// airdrop.js
-import {
-  getAssociatedTokenAddress,
-  createAssociatedTokenAccountInstruction,
-  createTransferInstruction
-} from "https://cdn.skypack.dev/@solana/spl-token";
+const { Connection, clusterApiUrl, PublicKey, Transaction } = solanaWeb3;
+const { getAssociatedTokenAddress, createTransferInstruction, getAccount } = window.splToken;
 
-const provider = window.solana;
-const status = document.getElementById("status");
-const connectBtn = document.getElementById("connect");
-const loadBtn = document.getElementById("load");
-const startBtn = document.getElementById("start");
-const logBox = document.getElementById("logBox");
-const tableBody = document.getElementById("tableBody");
-const MINT = new solanaWeb3.PublicKey("EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD");
-
+const connection = new Connection(clusterApiUrl("mainnet-beta"), "confirmed");
 let wallet = null;
-let connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl("mainnet-beta"));
-let airdropList = [];
+let tokenMintAddress = "EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD"; // SANCHAY ($SCY) Token Mint
 
-const log = (msg) => {
-  console.log(msg);
-  logBox.textContent += msg + "\n";
-};
+const csvInput = document.getElementById("csvFile");
+const table = document.getElementById("airdropTable").getElementsByTagName("tbody")[0];
 
-connectBtn.onclick = async () => {
-  try {
-    const resp = await provider.connect();
-    wallet = resp.publicKey;
-    status.textContent = "Connected: " + wallet.toBase58();
-    log("Wallet connected.");
-  } catch (e) {
-    status.textContent = "Connection failed.";
-    log("Error: " + e.message);
+// Connect Phantom
+document.getElementById("connectBtn").onclick = async () => {
+  if (window.solana && window.solana.isPhantom) {
+    try {
+      const response = await window.solana.connect();
+      wallet = window.solana;
+      alert("Connected: " + response.publicKey.toString());
+    } catch (err) {
+      alert("Connection failed.");
+    }
+  } else {
+    alert("Phantom Wallet not found.");
   }
 };
 
-loadBtn.onclick = () => {
-  const file = document.getElementById("fileInput").files[0];
-  if (!file) return;
+// Load CSV
+csvInput.addEventListener("change", function (e) {
+  const file = e.target.files[0];
   const reader = new FileReader();
-  reader.onload = (e) => {
-    const lines = e.target.result.trim().split("\n");
-    tableBody.innerHTML = "";
-    airdropList = lines.map((line, i) => {
-      const [addr, amt] = line.split(",");
-      const row = tableBody.insertRow();
-      row.insertCell(0).textContent = i + 1;
-      row.insertCell(1).textContent = addr;
-      row.insertCell(2).textContent = amt;
-      row.insertCell(3).textContent = "Pending";
-      return { address: addr.trim(), amount: parseFloat(amt), row };
-    });
-    log("Loaded " + airdropList.length + " entries.");
-  };
-  reader.readAsText(file);
-};
 
-startBtn.onclick = async () => {
-  if (!wallet) return alert("Connect wallet first");
-  const fromTokenAcc = await getAssociatedTokenAddress(MINT, wallet);
-  log("Source Token Account: " + fromTokenAcc.toBase58());
+  reader.onload = function (event) {
+    const lines = event.target.result.split("\n");
+    table.innerHTML = "";
 
-  for (let i = 0; i < airdropList.length; i++) {
-    const entry = airdropList[i];
-    try {
-      const recipient = new solanaWeb3.PublicKey(entry.address);
-      const toTokenAcc = await getAssociatedTokenAddress(MINT, recipient);
-      const tx = new solanaWeb3.Transaction();
-
-      const toInfo = await connection.getAccountInfo(toTokenAcc);
-      if (!toInfo) {
-        log(`Creating ATA for ${entry.address}`);
-        tx.add(createAssociatedTokenAccountInstruction(wallet, toTokenAcc, recipient, MINT));
+    for (let i = 0; i < lines.length; i++) {
+      const [address, amount] = lines[i].split(",");
+      if (address && amount) {
+        const row = table.insertRow();
+        row.insertCell(0).innerText = address.trim();
+        row.insertCell(1).innerText = amount.trim();
+        row.insertCell(2).innerText = "Pending";
       }
+    }
 
-      log(`Adding transfer: ${entry.amount} to ${entry.address}`);
-      tx.add(createTransferInstruction(fromTokenAcc, toTokenAcc, wallet, entry.amount));
-      tx.feePayer = wallet;
-      tx.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
+    document.getElementById("airdropTable").style.display = "table";
+  };
 
-      const signed = await provider.signTransaction(tx);
-      const sig = await connection.sendRawTransaction(signed.serialize());
-      log(`Tx submitted: ${sig}`);
+  reader.readAsText(file);
+});
 
-      await connection.confirmTransaction(sig);
-      entry.row.cells[3].textContent = "Sent";
-      log(`✅ Success: ${entry.amount} SCY sent to ${entry.address}`);
-    } catch (e) {
-      entry.row.cells[3].textContent = "Failed";
-      log(`❌ Failed ${entry.address}: ${e.message}`);
+// Start Airdrop
+document.getElementById("startBtn").onclick = async () => {
+  if (!wallet || !wallet.publicKey) return alert("Please connect Phantom first");
+
+  const tokenMint = new PublicKey(tokenMintAddress);
+  const rows = table.rows;
+
+  for (let i = 0; i < rows.length; i++) {
+    const address = rows[i].cells[0].innerText;
+    const amount = parseFloat(rows[i].cells[1].innerText);
+    const recipient = new PublicKey(address);
+    const sender = wallet.publicKey;
+
+    try {
+      const fromTokenAccount = await getAssociatedTokenAddress(tokenMint, sender);
+      const toTokenAccount = await getAssociatedTokenAddress(tokenMint, recipient);
+
+      const instruction = createTransferInstruction(
+        fromTokenAccount,
+        toTokenAccount,
+        sender,
+        amount * 1e6 // Adjust if SCY uses different decimals
+      );
+
+      const transaction = new Transaction().add(instruction);
+      const { signature } = await wallet.signAndSendTransaction(transaction);
+      await connection.confirmTransaction(signature, "confirmed");
+
+      rows[i].cells[2].innerText = "Success";
+    } catch (err) {
+      rows[i].cells[2].innerText = "Failed";
+      console.error("Airdrop failed for", address, err);
     }
   }
 };
