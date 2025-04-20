@@ -1,51 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>SANCHAY Airdrop Tool</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Solana Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.73.2/lib/index.iife.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/spl-token@0.2.0/lib/index.iife.min.js"></script>
+
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f9f9f9;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #fafafa;
       color: #222;
       text-align: center;
-      padding: 40px;
     }
-    h1 {
-      font-size: 2rem;
-      color: #0a3d62;
-    }
-    .button {
-      padding: 12px 20px;
+    button {
+      padding: 10px 20px;
       margin: 10px;
-      border: none;
-      background: #1e90ff;
+      font-size: 16px;
+      background-color: #1e88e5;
       color: white;
-      font-size: 1rem;
-      border-radius: 6px;
+      border: none;
+      border-radius: 4px;
       cursor: pointer;
     }
-    .button:hover {
-      background: #1565c0;
-    }
-    input[type="file"] {
-      margin: 10px;
-      font-size: 1rem;
+    button:hover {
+      background-color: #1565c0;
     }
     table {
       width: 90%;
       margin: 20px auto;
       border-collapse: collapse;
-      background: white;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
     th, td {
-      padding: 10px;
+      padding: 12px;
       border: 1px solid #ccc;
     }
     th {
-      background: #eee;
+      background-color: #f5f5f5;
     }
     .success {
       color: green;
@@ -53,45 +50,25 @@
     .failed {
       color: red;
     }
-    #logBox {
-      width: 90%;
-      height: 150px;
-      margin: 20px auto;
-      padding: 10px;
-      border: 1px solid #ccc;
-      background: #fff;
-      overflow-y: scroll;
-      text-align: left;
-      white-space: pre-wrap;
-    }
   </style>
 </head>
 <body>
   <h1>SANCHAY SPL Token Airdrop Tool</h1>
-
-  <button class="button" id="connect">Connect Phantom Wallet</button>
-  <button class="button" id="load">Load CSV</button>
-  <input type="file" id="fileInput" accept=".csv" style="display:none;" />
-  <button class="button" id="start">Start Airdrop</button>
-
-  <div id="status">Status: Not Connected</div>
-  <pre id="logBox"></pre>
+  <button id="connectWallet">Connect Phantom Wallet</button>
+  <input type="file" id="csvFile" accept=".csv">
+  <button id="startAirdrop">Start Airdrop</button>
 
   <table id="airdropTable" style="display:none;">
     <thead>
       <tr>
-        <th>#</th>
         <th>Wallet Address</th>
         <th>Amount</th>
         <th>Status</th>
       </tr>
     </thead>
-    <tbody id="tableBody"></tbody>
+    <tbody></tbody>
   </table>
 
-  <!-- Include Solana Web3.js -->
-  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.73.2/lib/index.iife.min.js"></script>
-  <!-- Include your custom JavaScript -->
-  <script type="module" src="airdrop.js"></script>
+  <script src="airdrop.js"></script>
 </body>
 </html>
