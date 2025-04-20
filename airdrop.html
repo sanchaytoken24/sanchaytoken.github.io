@@ -4,11 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SANCHAY Airdrop Tool</title>
-
-  <!-- Solana Web3 & SPL Token Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.73.2/lib/index.iife.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@solana/spl-token@0.2.0/lib/index.iife.min.js"></script>
-
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -58,28 +53,45 @@
     .failed {
       color: red;
     }
+    #logBox {
+      width: 90%;
+      height: 150px;
+      margin: 20px auto;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background: #fff;
+      overflow-y: scroll;
+      text-align: left;
+      white-space: pre-wrap;
+    }
   </style>
 </head>
 <body>
   <h1>SANCHAY SPL Token Airdrop Tool</h1>
 
-  <button class="button" id="connectBtn">Connect Phantom Wallet</button>
-  <button class="button" id="loadCsvBtn">Load CSV</button>
-  <input type="file" id="csvFile" accept=".csv" style="display:none;" />
-  <button class="button" id="startBtn">Start Airdrop</button>
+  <button class="button" id="connect">Connect Phantom Wallet</button>
+  <button class="button" id="load">Load CSV</button>
+  <input type="file" id="fileInput" accept=".csv" style="display:none;" />
+  <button class="button" id="start">Start Airdrop</button>
+
+  <div id="status">Status: Not Connected</div>
+  <pre id="logBox"></pre>
 
   <table id="airdropTable" style="display:none;">
     <thead>
       <tr>
+        <th>#</th>
         <th>Wallet Address</th>
         <th>Amount</th>
         <th>Status</th>
       </tr>
     </thead>
-    <tbody></tbody>
+    <tbody id="tableBody"></tbody>
   </table>
 
-  <!-- Custom Logic -->
-  <script src="airdrop.js"></script>
+  <!-- Include Solana Web3.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.73.2/lib/index.iife.min.js"></script>
+  <!-- Include your custom JavaScript -->
+  <script type="module" src="airdrop.js"></script>
 </body>
 </html>
