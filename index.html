@@ -1,125 +1,258 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>SANCHAY Airdrop Debug v2</title>
-  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@latest/lib/index.iife.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@solana/spl-token@0.3.5/lib/index.iife.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SANCHAY ($SCY) - The Digital Wealth Guardian</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
-    body { font-family: Arial, sans-serif; background: #f5fff7; text-align: center; padding: 20px; }
-    button, input { padding: 10px; margin: 10px; font-size: 16px; }
-    table { margin: auto; border-collapse: collapse; width: 95%; }
-    th, td { border: 1px solid #ccc; padding: 6px; font-size: 14px; }
-    th { background: #d0f5e2; }
-    .log { background: #eaffec; padding: 10px; margin-top: 20px; max-width: 90%; margin-left: auto; margin-right: auto; white-space: pre-wrap; text-align: left; border-radius: 10px; }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
   </style>
 </head>
-<body>
-  <h1>SANCHAY Airdrop Tool (Debug Mode)</h1>
-  <button id="connect">Connect Phantom</button>
-  <p id="status">Wallet not connected</p>
-  <input type="file" id="fileInput" accept=".csv">
-  <button id="load">Load CSV</button>
-  <button id="start">Start Airdrop</button>
+<body class="bg-white text-gray-800">
+  <header class="sticky top-0 z-50 bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <img src="logo.png" alt="SCY Logo" class="h-10 w-10">
+        <span class="text-xl font-bold text-cyan-500">SANCHAY</span>
+      </div>
+      <nav class="space-x-6 text-sm font-semibold">
+        <a href="#about" class="hover:text-cyan-600">About</a>
+        <a href="#tokenomics" class="hover:text-cyan-600">Tokenomics</a>
+        <a href="#chart" class="hover:text-cyan-600">Chart</a>
+        <a href="#buy" class="hover:text-cyan-600">Buy</a>
+      </nav>
+    </div>
+  </header>
 
-  <table>
-    <thead><tr><th>#</th><th>Wallet</th><th>Amount</th><th>Status</th></tr></thead>
-    <tbody id="tableBody"></tbody>
-  </table>
+  <section class="text-center py-16 bg-gradient-to-br from-cyan-100 to-white" data-aos="fade-up">
+    <div class="max-w-4xl mx-auto">
+      <img src="avatar.png" alt="SANCHAY Avatar" class="w-40 mx-auto mb-6 floating">
+      <h1 class="text-4xl font-extrabold text-gray-800">The Digital Guardian of Your Wealth</h1>
+      <p class="mt-4 text-lg text-gray-600">Empowering savings and long-term value through the SCY Token on Solana</p>
+      <div class="mt-6">
+        <a href="#buy" class="px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-full shadow">Start Your Journey</a>
+      </div>
+    </div>
+  </section>
 
-  <div class="log" id="logBox"></div>
+  <section id="about" class="py-20 bg-white" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-10">Why Choose SANCHAY?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+        <div data-aos="fade-up" data-aos-delay="100">
+          <img src="https://img.icons8.com/dotty/80/000000/money.png" class="mx-auto mb-4"/>
+          <h3 class="text-xl font-semibold">Built for Saving</h3>
+          <p class="text-gray-600">A token with real purpose — designed to hold and grow your value.</p>
+        </div>
+        <div data-aos="fade-up" data-aos-delay="200">
+          <img src="https://img.icons8.com/fluency-systems-regular/64/connected-people.png" class="mx-auto mb-4"/>
+          <h3 class="text-xl font-semibold">Community Driven</h3>
+          <p class="text-gray-600">From launch to liquidity, everything is transparent and for the people.</p>
+        </div>
+        <div data-aos="fade-up" data-aos-delay="300">
+          <img src="https://img.icons8.com/pulsar-line/64/shield.png" class="mx-auto mb-4"/>
+          <h3 class="text-xl font-semibold">Secure & Transparent</h3>
+          <p class="text-gray-600">Built on Solana with immutable records and open tokenomics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tokenomics" class="py-20 bg-cyan-50" data-aos="fade-up">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-8 text-gray-800">Tokenomics</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg">
+        <div class="bg-white p-6 rounded-xl shadow" data-aos="fade-right">
+          <p><strong>Total Supply:</strong> 21,000,000 SCY</p>
+          <p><strong>Token Type:</strong> SPL (Solana)</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow" data-aos="fade-left">
+          <p><strong>Public Distribution:</strong> 90%</p>
+          <p><strong>Initial Holder Locked:</strong> 10%</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="roadmap" class="py-20 bg-white" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-10 text-gray-800">SANCHAY Roadmap (2025 - 2026)</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="p-6 bg-cyan-50 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="100">
+          <h3 class="text-xl font-semibold text-cyan-600 mb-2">Q2 2025</h3>
+          <ul class="text-gray-600 text-sm space-y-1">
+            <li>- Token Launch on Solana</li>
+            <li>- Website + Whitepaper Launch</li>
+            <li>- Community building on X & Telegram</li>
+            <li>- Phase 1 Airdrop</li>
+          </ul>
+        </div>
+        <div class="p-6 bg-cyan-50 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="200">
+          <h3 class="text-xl font-semibold text-cyan-600 mb-2">Q3 2025</h3>
+          <ul class="text-gray-600 text-sm space-y-1">
+            <li>- Raydium Liquidity Pool Expansion</li>
+            <li>- Phase 2 Airdrops & Campaigns</li>
+            <li>- Listings in free crypto directories</li>
+            <li>- Initial influencer collaborations</li>
+          </ul>
+        </div>
+        <div class="p-6 bg-cyan-50 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="300">
+          <h3 class="text-xl font-semibold text-cyan-600 mb-2">Q4 2025</h3>
+          <ul class="text-gray-600 text-sm space-y-1">
+            <li>- Official community verification process</li>
+            <li>- Launch of SCY holder rewards</li>
+            <li>- DAO-lite governance proposal</li>
+            <li>- Liquidity scaling & dashboards</li>
+          </ul>
+        </div>
+        <div class="p-6 bg-cyan-50 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="400">
+          <h3 class="text-xl font-semibold text-cyan-600 mb-2">Q1 2026</h3>
+          <ul class="text-gray-600 text-sm space-y-1">
+            <li>- SCY Wallet Integrations</li>
+            <li>- NFT-based access system (optional)</li>
+            <li>- Community voting & feature proposals</li>
+            <li>- Global partnership outreach</li>
+          </ul>
+        </div>
+        <div class="p-6 bg-cyan-50 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="500">
+          <h3 class="text-xl font-semibold text-cyan-600 mb-2">Q2 2026</h3>
+          <ul class="text-gray-600 text-sm space-y-1">
+            <li>- Finalize staking mechanics</li>
+            <li>- Long-term liquidity locking</li>
+            <li>- Major exchange listing attempts</li>
+            <li>- Whitepaper v2 release</li>
+            <li>- Blockchain development exploration begins</li>
+            <li>- Community-funded research phase</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="vision" class="py-20 bg-cyan-50" data-aos="fade-up">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">Our Vision</h2>
+      <p class="text-lg text-gray-700 leading-relaxed">SANCHAY is more than a token — it's a digital wealth guardian created for those who believe in the power of disciplined saving, long-term holding, and decentralized trust. We aim to make SCY a symbol of purpose, simplicity, and savings in the world of digital assets.</p>
+    </div>
+  </section>
+
+  <section id="utility" class="py-20 bg-white" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-10">Token Utility</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+        <div>
+          <h3 class="text-xl font-semibold text-cyan-600 mb-2">Store of Value</h3>
+          <p class="text-gray-600">SCY is a long-term saving token with a capped supply of 21 million, echoing scarcity and discipline.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-cyan-600 mb-2">Community Distribution</h3>
+          <p class="text-gray-600">No presales. No VC. 50% of the tokens are for the community via airdrops, LP, and engagement.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-cyan-600 mb-2">Future Governance</h3>
+          <p class="text-gray-600">Planned DAO-lite model for community-driven upgrades and decisions in future phases.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="py-20 bg-cyan-100" data-aos="fade-up">
+    <div class="max-w-5xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Frequently Asked Questions</h2>
+      <div class="space-y-6 text-left">
+        <div>
+          <h3 class="font-semibold text-cyan-700">What is SANCHAY ($SCY)?</h3>
+          <p class="text-gray-700">SCY is a fixed-supply Solana token created to encourage saving and long-term value holding in the digital world.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-cyan-700">Where can I buy SCY?</h3>
+          <p class="text-gray-700">You can buy SCY on Raydium using the official mint address provided above via the Buy/Sell section.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-cyan-700">What wallets support SCY?</h3>
+          <p class="text-gray-700">SCY is an SPL token supported by Phantom and other Solana-compatible wallets.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-cyan-700">Is there a team or is it community-led?</h3>
+          <p class="text-gray-700">SANCHAY is anonymous and community-driven, with no centralized authority or presale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="chart" class="py-20 bg-white" data-aos="fade-up">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-6">Live Price Chart</h2>
+      <iframe src="https://dexscreener.com/solana/EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD" width="100%" height="500" style="border: none; border-radius: 10px;"></iframe>
+    </div>
+  </section>
+
+  <section id="buy" class="py-20 bg-cyan-100" data-aos="zoom-in">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">Buy / Sell $SCY</h2>
+      <p class="text-gray-700 mb-6">SCY is available on Raydium. Swap SOL for SCY easily with Phantom Wallet.</p>
+      <code class="block mb-4 p-3 bg-white rounded text-sm text-purple-700">Token Address: EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD</code>
+      <a href="https://raydium.io/swap/?inputCurrency=sol&outputCurrency=EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD" target="_blank" class="inline-block px-6 py-3 bg-cyan-600 text-white font-semibold rounded-full shadow hover:bg-cyan-700">Trade on Raydium</a>
+    </div>
+  </section>
+
+  <section id="updates" class="py-20 bg-white" data-aos="fade-up">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">Latest News & Updates</h2>
+      <p class="text-gray-600 mb-4">Stay informed with the latest developments, events, and updates from SANCHAY.</p>
+      <div class="space-y-3 text-left text-gray-700">
+        <p>📢 Phase 1 Airdrop Concluded – Results live soon.</p>
+        <p>🛠️ Liquidity pool expanded by 1000+ SCY on Raydium.</p>
+        <p>🌐 Website upgrade with full roadmap and utilities live now.</p>
+        <p>⚙️ Blockchain exploration begins in Q2 2026!</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="py-20 bg-cyan-50" data-aos="fade-up">
+    <div class="max-w-xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">Connect With Us</h2>
+      <p class="text-gray-600 mb-6">Got questions or want to partner with SANCHAY? Reach out to us through our official channels.</p>
+      <div class="flex justify-center space-x-6">
+        <a href="https://twitter.com/SANCHAY892616" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/30/000000/twitter.png" alt="Twitter">
+        </a>
+        <a href="https://t.me/Sanchayofficial" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/30/000000/telegram-app.png" alt="Telegram">
+        </a>
+      </div>
+      <p class="mt-4 text-sm text-gray-500">SANCHAY is a decentralized project – all initiatives are transparent and open to community feedback.</p>
+    </div>
+  </section>
+
+  <footer class="bg-cyan-50 py-6 text-center text-sm text-gray-500">
+    <p>&copy; 2025 SANCHAY | Designed with purpose & powered by community</p>
+  <div class="flex justify-center items-center space-x-6 py-4">
+    <a href="https://twitter.com/SANCHAY892616" target="_blank">
+      <img src="https://img.icons8.com/ios-filled/30/000000/twitter.png" alt="X (Twitter)" class="hover:scale-110 transition-transform duration-200">
+    </a>
+    <a href="https://t.me/Sanchayofficial" target="_blank">
+      <img src="https://img.icons8.com/ios-filled/30/000000/telegram-app.png" alt="Telegram" class="hover:scale-110 transition-transform duration-200">
+    </a>
+  </div>
+
+</footer>
 
   <script>
-    window.onload = () => {
-      const provider = window.solana;
-      const status = document.getElementById("status");
-      const connectBtn = document.getElementById("connect");
-      const loadBtn = document.getElementById("load");
-      const startBtn = document.getElementById("start");
-      const logBox = document.getElementById("logBox");
-      const tableBody = document.getElementById("tableBody");
-      const MINT = new solanaWeb3.PublicKey("EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD");
-
-      let wallet = null;
-      let connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl("mainnet-beta"));
-      let airdropList = [];
-
-      const log = (msg) => {
-        console.log(msg);
-        logBox.textContent += msg + "\n";
-      };
-
-      connectBtn.onclick = async () => {
-        try {
-          const resp = await provider.connect();
-          wallet = resp.publicKey;
-          status.textContent = "Connected: " + wallet.toBase58();
-          log("Wallet connected.");
-        } catch (e) {
-          status.textContent = "Connection failed.";
-          log("Error: " + e.message);
-        }
-      };
-
-      loadBtn.onclick = () => {
-        const file = document.getElementById("fileInput").files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const lines = e.target.result.trim().split("\n");
-          tableBody.innerHTML = "";
-          airdropList = lines.map((line, i) => {
-            const [addr, amt] = line.split(",");
-            const row = tableBody.insertRow();
-            row.insertCell(0).textContent = i + 1;
-            row.insertCell(1).textContent = addr;
-            row.insertCell(2).textContent = amt;
-            row.insertCell(3).textContent = "Pending";
-            return { address: addr.trim(), amount: parseFloat(amt), row };
-          });
-          log("Loaded " + airdropList.length + " entries.");
-        };
-        reader.readAsText(file);
-      };
-
-      startBtn.onclick = async () => {
-        if (!wallet) return alert("Connect wallet first");
-
-        log("Preparing to fetch source token account...");
-        const fromTokenAcc = await splToken.getAssociatedTokenAddress(MINT, wallet);
-        log("Source Token Account: " + fromTokenAcc.toBase58());
-
-        for (let i = 0; i < airdropList.length; i++) {
-          const entry = airdropList[i];
-          try {
-            const recipient = new solanaWeb3.PublicKey(entry.address);
-            const toTokenAcc = await splToken.getAssociatedTokenAddress(MINT, recipient);
-            const tx = new solanaWeb3.Transaction();
-
-            const toInfo = await connection.getAccountInfo(toTokenAcc);
-            if (!toInfo) {
-              log(`Creating ATA for ${entry.address}`);
-              tx.add(splToken.createAssociatedTokenAccountInstruction(wallet, toTokenAcc, recipient, MINT));
-            }
-
-            log(`Adding transfer: ${entry.amount} to ${entry.address}`);
-            tx.add(splToken.createTransferInstruction(fromTokenAcc, toTokenAcc, wallet, entry.amount));
-            tx.feePayer = wallet;
-            tx.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
-
-            const signed = await provider.signTransaction(tx);
-            const sig = await connection.sendRawTransaction(signed.serialize());
-            log(`Tx submitted: ${sig}`);
-
-            await connection.confirmTransaction(sig);
-            entry.row.cells[3].textContent = "Sent";
-            log(`✅ Success: ${entry.amount} SCY sent to ${entry.address}`);
-          } catch (e) {
-            entry.row.cells[3].textContent = "Failed";
-            log(`❌ Failed ${entry.address}: ${e.message}`);
-          }
-        }
-      };
-    };
+    AOS.init({ once: true });
   </script>
 </body>
 </html>
