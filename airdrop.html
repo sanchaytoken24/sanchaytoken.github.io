@@ -1,25 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>SANCHAY Airdrop Tool (Module)</title>
-  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SANCHAY Airdrop Tool</title>
+
+  <!-- Phantom & Solana Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.73.2/lib/index.iife.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/spl-token@0.2.0/lib/index.iife.min.js"></script>
 </head>
 <body>
   <h1>SANCHAY Airdrop Tool</h1>
-  <button id="connect">Connect Phantom</button>
-  <p id="status">Wallet not connected</p>
-  <input type="file" id="fileInput" accept=".csv">
-  <button id="load">Load CSV</button>
-  <button id="start">Start Airdrop</button>
 
-  <table>
-    <thead><tr><th>#</th><th>Wallet</th><th>Amount</th><th>Status</th></tr></thead>
-    <tbody id="tableBody"></tbody>
+  <button id="connectBtn">Connect Phantom Wallet</button>
+  <input type="file" id="csvFile" accept=".csv" />
+  <button id="startBtn">Start Airdrop</button>
+
+  <table id="airdropTable" style="display:none;">
+    <thead>
+      <tr><th>Wallet</th><th>Amount</th><th>Status</th></tr>
+    </thead>
+    <tbody></tbody>
   </table>
 
-  <div class="log" id="logBox"></div>
-
-  <!-- Module script -->
-  <script type="module" src="airdrop.js"></script>
+  <!-- Link JS logic -->
+  <script src="airdrop.js"></script>
 </body>
 </html>
