@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SANCHAY Airdrop Debug Final</title>
+  <title>SANCHAY Airdrop Debug Final Patch</title>
   <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@latest/lib/index.iife.min.js"></script>
   <script src="https://unpkg.com/@solana/spl-token@latest/dist/bundle.iife.js"></script>
   <style>
@@ -30,7 +30,6 @@
 
   <script>
     window.onload = () => {
-      const splToken = window.splToken;
       const provider = window.solana;
       const status = document.getElementById("status");
       const connectBtn = document.getElementById("connect");
@@ -39,6 +38,12 @@
       const logBox = document.getElementById("logBox");
       const tableBody = document.getElementById("tableBody");
       const MINT = new solanaWeb3.PublicKey("EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD");
+
+      const {
+        getAssociatedTokenAddress,
+        createAssociatedTokenAccountInstruction,
+        createTransferInstruction
+      } = window.splToken;
 
       let wallet = null;
       let connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl("mainnet-beta"));
@@ -86,24 +91,24 @@
         if (!wallet) return alert("Connect wallet first");
 
         log("Preparing to fetch source token account...");
-        const fromTokenAcc = await splToken.getAssociatedTokenAddress(MINT, wallet);
+        const fromTokenAcc = await getAssociatedTokenAddress(MINT, wallet);
         log("Source Token Account: " + fromTokenAcc.toBase58());
 
         for (let i = 0; i < airdropList.length; i++) {
           const entry = airdropList[i];
           try {
             const recipient = new solanaWeb3.PublicKey(entry.address);
-            const toTokenAcc = await splToken.getAssociatedTokenAddress(MINT, recipient);
+            const toTokenAcc = await getAssociatedTokenAddress(MINT, recipient);
             const tx = new solanaWeb3.Transaction();
 
             const toInfo = await connection.getAccountInfo(toTokenAcc);
             if (!toInfo) {
               log(`Creating ATA for ${entry.address}`);
-              tx.add(splToken.createAssociatedTokenAccountInstruction(wallet, toTokenAcc, recipient, MINT));
+              tx.add(createAssociatedTokenAccountInstruction(wallet, toTokenAcc, recipient, MINT));
             }
 
             log(`Adding transfer: ${entry.amount} to ${entry.address}`);
-            tx.add(splToken.createTransferInstruction(fromTokenAcc, toTokenAcc, wallet, entry.amount));
+            tx.add(createTransferInstruction(fromTokenAcc, toTokenAcc, wallet, entry.amount));
             tx.feePayer = wallet;
             tx.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
 
