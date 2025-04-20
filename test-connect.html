@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test Phantom Connect</title>
+</head>
+<body>
+  <h2>Test Connect Phantom Wallet</h2>
+  <button onclick="connectWallet()">Connect Wallet</button>
+  <p id="status">Not connected</p>
+
+  <script>
+    async function connectWallet() {
+      try {
+        const resp = await window.solana.connect();
+        document.getElementById("status").textContent = "Connected: " + resp.publicKey.toString();
+        console.log("Connected to:", resp.publicKey.toString());
+      } catch (err) {
+        console.error("Connection failed:", err.message);
+      }
+    }
+  </script>
+</body>
+</html>
