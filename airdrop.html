@@ -3,154 +3,144 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SANCHAY Token</title>
+  <title>SANCHAY Airdrop Tool V2</title>
   <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background: #f5fbff;
-      color: #222;
-    }
-    nav {
-      background: #003153;
-      padding: 15px;
-      display: flex;
-      justify-content: center;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
-    }
-    header {
-      text-align: center;
-      padding: 50px 20px;
-    }
-    section {
-      padding: 20px;
-      max-width: 900px;
-      margin: auto;
-    }
-    #airdrop-section {
-      background: #fff7e6;
-      border-radius: 10px;
-      padding: 30px;
-      text-align: center;
-      margin-top: 40px;
-    }
-    input, button {
-      margin: 10px;
-      padding: 10px;
-      width: 80%;
-      max-width: 400px;
-      font-size: 16px;
-    }
-    #output {
-      margin-top: 20px;
-      white-space: pre-wrap;
-      font-family: monospace;
-      background: #fff3d4;
-      padding: 10px;
-      border-radius: 10px;
-    }
+    body { font-family: 'Segoe UI', sans-serif; background: #fdf6ec; padding: 20px; text-align: center; }
+    h1 { color: #e79a00; }
+    input, button { margin: 10px; padding: 10px; width: 80%; max-width: 400px; font-size: 16px; }
+    table { margin: 20px auto; width: 90%; border-collapse: collapse; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; font-size: 14px; }
+    th { background-color: #ffe8b3; }
+    #output { margin-top: 20px; white-space: pre-wrap; font-family: monospace; background: #fff3d4; padding: 10px; border-radius: 10px; }
   </style>
 </head>
 <body>
+  <h1>SANCHAY Airdrop Tool V2</h1>
+  <p>Connect Phantom Wallet and send SCY tokens in batch with full control</p>
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="tokenomics.html">Tokenomics</a>
-    <a href="roadmap.html">Roadmap</a>
-    <a href="airdrop.html">Airdrop</a>
-  </nav>
+  <input type="file" id="fileInput" accept=".csv" />
+  <br>
+  <button onclick="connectWallet()">Connect Phantom Wallet</button>
+  <button onclick="prepareTransfers()">Prepare Airdrop Table</button>
+  <button onclick="startTransfers()">Start Airdrop</button>
 
-  <header>
-    <h1>✨ Welcome to SANCHAY Token ✨</h1>
-    <p>Your guardian of digital savings</p>
-  </header>
+  <table id="transferTable">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Wallet Address</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
 
-  <section id="airdrop-section">
-    <h2>✨ SANCHAY Airdrop Tool ✨</h2>
-    <p>Connect Phantom Wallet and airdrop SCY tokens to your community</p>
-    <input type="file" id="fileInput" accept=".csv" />
-    <br>
-    <button onclick="connectWallet()">Connect Phantom Wallet</button>
-    <button onclick="sendAirdrop()">Send Airdrop</button>
-    <div id="output"></div>
-  </section>
+  <div id="output"></div>
 
   <script>
-    let connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
-    let wallet = null;
+    const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
     const SCY_MINT = new solanaWeb3.PublicKey('EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD');
+    let wallet = null;
+    let entries = [];
 
     async function connectWallet() {
-      if ('solana' in window) {
-        const provider = window.solana;
-        if (provider.isPhantom) {
-          const res = await provider.connect();
-          wallet = res.publicKey;
-          log(`Connected to: ${wallet}`);
-        }
+      if (window.solana && window.solana.isPhantom) {
+        const resp = await window.solana.connect();
+        wallet = resp.publicKey;
+        log(`Connected to: ${wallet.toBase58()}`);
       } else {
-        alert('Phantom Wallet not found');
+        alert("Phantom Wallet not found");
       }
     }
 
-    async function sendAirdrop() {
+    function prepareTransfers() {
       const file = document.getElementById('fileInput').files[0];
-      if (!file || !wallet) return alert('Please select file and connect wallet');
+      if (!file) return alert("Please upload CSV file");
       const reader = new FileReader();
-      reader.onload = async function (e) {
-        const lines = e.target.result.split('\n');
-        for (const line of lines) {
-          const [address, amount] = line.trim().split(',');
-          if (!address || isNaN(amount)) continue;
-
-          try {
-            const recipient = new solanaWeb3.PublicKey(address);
-            const tx = new solanaWeb3.Transaction();
-            const senderTokenAccount = await connection.getTokenAccountsByOwner(wallet, { mint: SCY_MINT });
-            const receiverTokenAccount = await connection.getTokenAccountsByOwner(recipient, { mint: SCY_MINT });
-
-            const source = senderTokenAccount.value[0]?.pubkey;
-            const destination = receiverTokenAccount.value[0]?.pubkey;
-
-            if (!source || !destination) {
-              log(`Skipping ${address} - token account not found`);
-              continue;
-            }
-
-            const instruction = solanaWeb3.Token.createTransferInstruction(
-              solanaWeb3.TOKEN_PROGRAM_ID,
-              source,
-              destination,
-              wallet,
-              [],
-              parseInt(amount)
-            );
-            tx.add(instruction);
-            const { blockhash } = await connection.getRecentBlockhash();
-            tx.recentBlockhash = blockhash;
-            tx.feePayer = wallet;
-            const signed = await window.solana.signTransaction(tx);
-            const signature = await connection.sendRawTransaction(signed.serialize());
-            await connection.confirmTransaction(signature);
-            log(`Sent ${amount} SCY to ${address}`);
-          } catch (err) {
-            log(`Error sending to ${address}: ${err.message}`);
-          }
-        }
+      reader.onload = (e) => {
+        const lines = e.target.result.trim().split('\n');
+        entries = lines.map((line, i) => {
+          const [address, amount] = line.split(',');
+          return { id: i + 1, address: address.trim(), amount: parseFloat(amount), status: 'Pending', skip: false };
+        });
+        renderTable();
       };
       reader.readAsText(file);
+    }
+
+    function renderTable() {
+      const body = document.getElementById('tableBody');
+      body.innerHTML = '';
+      entries.forEach((entry, i) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${entry.id}</td>
+          <td>${entry.address}</td>
+          <td>${entry.amount}</td>
+          <td id="status-${i}">${entry.status}</td>
+          <td><button onclick="toggleEntry(${i})">${entry.skip ? 'Undo' : 'Skip'}</button></td>
+        `;
+        body.appendChild(row);
+      });
+    }
+
+    function toggleEntry(index) {
+      entries[index].skip = !entries[index].skip;
+      entries[index].status = entries[index].skip ? 'Skipped' : 'Pending';
+      renderTable();
+    }
+
+    async function startTransfers() {
+      if (!wallet) return alert("Connect wallet first");
+      for (let i = 0; i < entries.length; i++) {
+        const e = entries[i];
+        if (e.skip || e.status !== 'Pending') continue;
+        try {
+          const tx = new solanaWeb3.Transaction();
+          const senderATA = await findATA(wallet, SCY_MINT);
+          const recipient = new solanaWeb3.PublicKey(e.address);
+          const recipientATA = await findATA(recipient, SCY_MINT);
+
+          const ix = solanaWeb3.Token.createTransferInstruction(
+            solanaWeb3.TOKEN_PROGRAM_ID,
+            senderATA,
+            recipientATA,
+            wallet,
+            [],
+            e.amount
+          );
+
+          tx.add(ix);
+          tx.feePayer = wallet;
+          const { blockhash } = await connection.getRecentBlockhash();
+          tx.recentBlockhash = blockhash;
+          const signed = await window.solana.signTransaction(tx);
+          const sig = await connection.sendRawTransaction(signed.serialize());
+          await connection.confirmTransaction(sig);
+
+          e.status = 'Sent';
+        } catch (err) {
+          e.status = 'Failed';
+          log(`Error sending to ${e.address}: ${err.message}`);
+        }
+        document.getElementById(`status-${i}`).textContent = e.status;
+      }
+    }
+
+    async function findATA(owner, mint) {
+      return (await solanaWeb3.PublicKey.findProgramAddress([
+        owner.toBuffer(),
+        solanaWeb3.TOKEN_PROGRAM_ID.toBuffer(),
+        mint.toBuffer()
+      ], new solanaWeb3.PublicKey("ATokenGPvbdGVxr1b2hvZbsiqW5aVAkE79tCkq7zv9z3")).then(r => r[0]));
     }
 
     function log(msg) {
       document.getElementById('output').textContent += msg + '\n';
     }
   </script>
-
 </body>
 </html>
