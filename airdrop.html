@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SANCHAY Airdrop Tool - Simple Version</title>
+  <title>SANCHAY Airdrop Tool (SCY Token Transfer)</title>
   <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/spl-token@0.3.5/lib/index.iife.min.js"></script>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; background: #f5fff7; text-align: center; }
     input, button { padding: 10px; margin: 10px; width: 80%; max-width: 400px; font-size: 16px; }
@@ -15,7 +16,7 @@
   </style>
 </head>
 <body>
-  <h1>SANCHAY Airdrop Tool</h1>
+  <h1>SANCHAY Airdrop Tool (SCY)</h1>
   <button onclick="connectWallet()">Connect Phantom Wallet</button>
   <p id="walletAddress">Wallet not connected</p>
   <input type="file" id="csvFile" accept=".csv">
@@ -31,7 +32,9 @@
 
   <script>
     const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
-    const MINT_ADDRESS = "EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD";
+    const MINT_ADDRESS = new solanaWeb3.PublicKey("EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD");
+    const TOKEN_PROGRAM_ID = splToken.TOKEN_PROGRAM_ID;
+    const ASSOCIATED_TOKEN_PROGRAM_ID = splToken.ASSOCIATED_TOKEN_PROGRAM_ID;
     let provider = window.solana;
     let walletPublicKey = null;
     let entries = [];
@@ -80,24 +83,50 @@
 
     async function startAirdrop() {
       if (!walletPublicKey) return log("Connect your wallet first.");
-      log("Starting airdrop...");
+      const senderTokenAccount = await splToken.getAssociatedTokenAddress(MINT_ADDRESS, walletPublicKey);
+      log("Starting airdrop of SCY token...");
+
       for (let i = 0; i < entries.length; i++) {
         const entry = entries[i];
         try {
           const recipient = new solanaWeb3.PublicKey(entry.address);
-          const instruction = solanaWeb3.SystemProgram.transfer({
-            fromPubkey: walletPublicKey,
-            toPubkey: recipient,
-            lamports: 0 // placeholder for SPL token logic
-          });
-          const transaction = new solanaWeb3.Transaction().add(instruction);
+          const recipientATA = await splToken.getAssociatedTokenAddress(
+            MINT_ADDRESS,
+            recipient
+          );
+
+          const instructions = [];
+          const recipientInfo = await connection.getAccountInfo(recipientATA);
+          if (!recipientInfo) {
+            instructions.push(
+              splToken.createAssociatedTokenAccountInstruction(
+                walletPublicKey,
+                recipientATA,
+                recipient,
+                MINT_ADDRESS
+              )
+            );
+          }
+
+          instructions.push(
+            splToken.createTransferInstruction(
+              senderTokenAccount,
+              recipientATA,
+              walletPublicKey,
+              entry.amount
+            )
+          );
+
+          const transaction = new solanaWeb3.Transaction().add(...instructions);
           transaction.feePayer = walletPublicKey;
           transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
+
           const signed = await provider.signTransaction(transaction);
           const signature = await connection.sendRawTransaction(signed.serialize());
           await connection.confirmTransaction(signature);
+
           entry.statusCell.textContent = "Sent";
-          log(`Sent to ${entry.address}`);
+          log(`Sent ${entry.amount} SCY to ${entry.address}`);
         } catch (err) {
           entry.statusCell.textContent = "Failed";
           log(`Failed for ${entry.address}: ${err.message}`);
