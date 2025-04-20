@@ -1,111 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SANCHAY Airdrop Tool V4</title>
-  <script type="module">
-    import {
-      Connection,
-      clusterApiUrl,
-      PublicKey,
-      Transaction,
-      sendAndConfirmTransaction
-    } from "https://cdn.skypack.dev/@solana/web3.js";
-
-    import {
-      getAssociatedTokenAddress,
-      createAssociatedTokenAccountInstruction,
-      createTransferInstruction,
-      TOKEN_PROGRAM_ID
-    } from "https://cdn.skypack.dev/@solana/spl-token";
-
-    let provider = window.solana;
-    let wallet = null;
-    const connection = new Connection(clusterApiUrl("mainnet-beta"));
-    const MINT_ADDRESS = new PublicKey("EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD");
-
-    window.onload = () => {
-      document.getElementById("connect").onclick = async () => {
-        if (!provider || !provider.isPhantom) {
-          alert("Phantom wallet not found!");
-          return;
-        }
-        const resp = await provider.connect();
-        wallet = resp.publicKey;
-        document.getElementById("wallet-status").textContent = `Connected: ${wallet.toBase58()}`;
-      };
-
-      document.getElementById("upload").onchange = (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (evt) => {
-          const lines = evt.target.result.trim().split("\n");
-          const table = document.getElementById("airdrop-table");
-          lines.forEach((line, i) => {
-            const [address, amount] = line.split(",");
-            const row = table.insertRow();
-            row.insertCell(0).textContent = i + 1;
-            row.insertCell(1).textContent = address.trim();
-            row.insertCell(2).textContent = amount.trim();
-            row.insertCell(3).textContent = "Pending";
-          });
-        };
-        reader.readAsText(file);
-      };
-
-      document.getElementById("start").onclick = async () => {
-        const table = document.getElementById("airdrop-table");
-        for (let i = 1; i < table.rows.length; i++) {
-          const row = table.rows[i];
-          const address = row.cells[1].textContent.trim();
-          const amount = parseFloat(row.cells[2].textContent.trim());
-
-          try {
-            const recipient = new PublicKey(address);
-            const senderATA = await getAssociatedTokenAddress(MINT_ADDRESS, wallet);
-            const recipientATA = await getAssociatedTokenAddress(MINT_ADDRESS, recipient);
-            const tx = new Transaction();
-            const recipientInfo = await connection.getAccountInfo(recipientATA);
-
-            if (!recipientInfo) {
-              tx.add(createAssociatedTokenAccountInstruction(wallet, recipientATA, recipient, MINT_ADDRESS));
-            }
-
-            tx.add(createTransferInstruction(senderATA, recipientATA, wallet, amount));
-            tx.feePayer = wallet;
-            tx.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
-
-            const signed = await provider.signTransaction(tx);
-            const sig = await connection.sendRawTransaction(signed.serialize());
-            await connection.confirmTransaction(sig);
-            row.cells[3].textContent = "Sent";
-          } catch (err) {
-            row.cells[3].textContent = "Failed";
-            console.error("Airdrop failed for", address, err);
-          }
-        }
-      };
-    };
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SANCHAY Airdrop Tool - Simple Version</title>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@latest/lib/index.iife.min.js"></script>
   <style>
-    body { font-family: sans-serif; text-align: center; background: #f0fff6; padding: 20px; }
-    h1 { color: #00874d; }
-    button, input { margin: 10px; padding: 10px; font-size: 16px; }
-    table { margin: auto; border-collapse: collapse; width: 95%; }
-    td, th { border: 1px solid #ccc; padding: 6px; font-size: 14px; }
-    th { background: #d9f5e5; }
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5fff7; text-align: center; }
+    input, button { padding: 10px; margin: 10px; width: 80%; max-width: 400px; font-size: 16px; }
+    table { margin: auto; border-collapse: collapse; width: 90%; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+    th { background: #d0f5e2; }
+    .log { margin-top: 20px; white-space: pre-wrap; text-align: left; background: #eaffec; padding: 10px; border-radius: 8px; max-width: 800px; margin-left: auto; margin-right: auto; }
   </style>
 </head>
 <body>
-  <h1>SANCHAY Airdrop Tool V4</h1>
-  <div id="wallet-status">Wallet not connected</div>
-  <button id="connect">Connect Phantom Wallet</button>
-  <input type="file" id="upload" accept=".csv" />
-  <button id="start">Start Airdrop</button>
-  <table id="airdrop-table">
-    <tr><th>#</th><th>Wallet</th><th>Amount</th><th>Status</th></tr>
+  <h1>SANCHAY Airdrop Tool</h1>
+  <button onclick="connectWallet()">Connect Phantom Wallet</button>
+  <p id="walletAddress">Wallet not connected</p>
+  <input type="file" id="csvFile" accept=".csv">
+  <button onclick="loadCSV()">Prepare Airdrop Table</button>
+  <button onclick="startAirdrop()">Start Airdrop</button>
+
+  <table id="airdropTable">
+    <thead><tr><th>#</th><th>Wallet</th><th>Amount</th><th>Status</th></tr></thead>
+    <tbody id="tableBody"></tbody>
   </table>
+
+  <div class="log" id="logBox"></div>
+
+  <script>
+    const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
+    const MINT_ADDRESS = "EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD";
+    let provider = window.solana;
+    let walletPublicKey = null;
+    let entries = [];
+
+    function log(msg) {
+      const box = document.getElementById("logBox");
+      box.textContent += msg + "\n";
+    }
+
+    async function connectWallet() {
+      if (!provider?.isPhantom) {
+        alert("Phantom Wallet not found");
+        return;
+      }
+      try {
+        const resp = await provider.connect();
+        walletPublicKey = resp.publicKey;
+        document.getElementById("walletAddress").textContent = `Connected: ${walletPublicKey.toBase58()}`;
+        log("Wallet connected.");
+      } catch (err) {
+        log("Connection failed: " + err.message);
+      }
+    }
+
+    function loadCSV() {
+      const file = document.getElementById("csvFile").files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const lines = e.target.result.trim().split("\n");
+        const table = document.getElementById("tableBody");
+        table.innerHTML = "";
+        entries = lines.map((line, index) => {
+          const [address, amount] = line.split(",");
+          const row = table.insertRow();
+          row.insertCell(0).textContent = index + 1;
+          row.insertCell(1).textContent = address.trim();
+          row.insertCell(2).textContent = amount.trim();
+          row.insertCell(3).textContent = "Pending";
+          return { address: address.trim(), amount: parseFloat(amount), statusCell: row.cells[3] };
+        });
+        log(`${entries.length} entries loaded.`);
+      };
+      reader.readAsText(file);
+    }
+
+    async function startAirdrop() {
+      if (!walletPublicKey) return log("Connect your wallet first.");
+      log("Starting airdrop...");
+      for (let i = 0; i < entries.length; i++) {
+        const entry = entries[i];
+        try {
+          const recipient = new solanaWeb3.PublicKey(entry.address);
+          const instruction = solanaWeb3.SystemProgram.transfer({
+            fromPubkey: walletPublicKey,
+            toPubkey: recipient,
+            lamports: 0 // placeholder for SPL token logic
+          });
+          const transaction = new solanaWeb3.Transaction().add(instruction);
+          transaction.feePayer = walletPublicKey;
+          transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
+          const signed = await provider.signTransaction(transaction);
+          const signature = await connection.sendRawTransaction(signed.serialize());
+          await connection.confirmTransaction(signature);
+          entry.statusCell.textContent = "Sent";
+          log(`Sent to ${entry.address}`);
+        } catch (err) {
+          entry.statusCell.textContent = "Failed";
+          log(`Failed for ${entry.address}: ${err.message}`);
+        }
+      }
+    }
+  </script>
 </body>
 </html>
