@@ -3,100 +3,256 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SANCHAY ($SCY) - Digital Vault for All</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <title>SANCHAY ($SCY) - The Digital Wealth Guardian</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
-    body { font-family: 'Poppins', sans-serif; margin: 0; background: #f8fcff; color: #222; }
-    header { background: #d9f3ff; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
-    header h1 { font-size: 24px; margin: 0; }
-    nav a { margin: 0 15px; text-decoration: none; font-weight: 600; color: #006a9b; }
-    .hero { text-align: center; padding: 60px 20px; background: linear-gradient(to bottom, #e0fbff, #ffffff); }
-    .hero h2 { font-size: 36px; }
-    .hero p { font-size: 18px; max-width: 600px; margin: 0 auto; }
-    .section { padding: 40px 20px; max-width: 1000px; margin: auto; }
-    .section h3 { font-size: 28px; border-bottom: 2px solid #c1ecff; padding-bottom: 10px; }
-    .roadmap li, .faq li { margin-bottom: 10px; }
-    footer { text-align: center; padding: 20px; background: #e6f9ff; }
-    iframe { width: 100%; height: 400px; border: none; }
-    .token-buttons a { margin: 10px; padding: 10px 20px; background: #0ca6e9; color: white; text-decoration: none; border-radius: 6px; display: inline-block; }
-    .avatar { width: 100px; border-radius: 50%; margin-bottom: 10px; }
-    .updates ul { list-style-type: disc; padding-left: 20px; }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
   </style>
 </head>
-<body>
-  <header>
-    <h1>SANCHAY ($SCY)</h1>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#tokenomics">Tokenomics</a>
-      <a href="#roadmap">Roadmap</a>
-      <a href="#faq">FAQ</a>
-      <a href="airdrop.html">Airdrop</a>
-      <a href="https://t.me/Sanchayofficial" target="_blank">Telegram</a>
-      <a href="https://x.com/SANCHAY892616" target="_blank">X</a>
-    </nav>
+<body class="bg-white text-gray-800">
+  <header class="sticky top-0 z-50 bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <img src="logo.png" alt="SCY Logo" class="h-10 w-10">
+        <span class="text-xl font-bold text-cyan-500">SANCHAY</span>
+      </div>
+      <nav class="space-x-6 text-sm font-semibold">
+        <a href="#about" class="hover:text-cyan-600">About</a>
+        <a href="#tokenomics" class="hover:text-cyan-600">Tokenomics</a>
+        <a href="#chart" class="hover:text-cyan-600">Chart</a>
+        <a href="#buy" class="hover:text-cyan-600">Buy</a>
+      </nav>
+    </div>
   </header>
 
-  <div class="hero">
-    <img src="avatar.png" alt="SANCHAY Avatar" class="avatar">
-    <h2>Your Digital Wealth Guardian</h2>
-    <p>SANCHAY is a community-powered, scarce digital token built on Solana. Designed for value, savings, and futuristic adoption.</p>
-    <div class="token-buttons">
-      <a href="https://raydium.io/swap/?inputCurrency=sol&outputCurrency=EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD">Buy / Swap SCY</a>
-      <a href="#">Track on DexScreener</a>
+  <section class="text-center py-16 bg-gradient-to-br from-cyan-100 to-white" data-aos="fade-up">
+    <div class="max-w-4xl mx-auto">
+      <img src="avatar.png" alt="SANCHAY Avatar" class="w-40 mx-auto mb-6 floating">
+      <h1 class="text-4xl font-extrabold text-gray-800">The Digital Guardian of Your Wealth</h1>
+      <p class="mt-4 text-lg text-gray-600">Empowering savings and long-term value through the SCY Token on Solana</p>
+      <div class="mt-6">
+        <a href="#buy" class="px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-full shadow">Start Your Journey</a>
+      </div>
     </div>
+  </section>
+
+  <section id="about" class="py-20 bg-white" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-10">Why Choose SANCHAY?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+        <div data-aos="fade-up" data-aos-delay="100">
+          <img src="https://img.icons8.com/dotty/80/000000/money.png" class="mx-auto mb-4"/>
+          <h3 class="text-xl font-semibold">Built for Saving</h3>
+          <p class="text-gray-600">A token with real purpose — designed to hold and grow your value.</p>
+        </div>
+        <div data-aos="fade-up" data-aos-delay="200">
+          <img src="https://img.icons8.com/fluency-systems-regular/64/connected-people.png" class="mx-auto mb-4"/>
+          <h3 class="text-xl font-semibold">Community Driven</h3>
+          <p class="text-gray-600">From launch to liquidity, everything is transparent and for the people.</p>
+        </div>
+        <div data-aos="fade-up" data-aos-delay="300">
+          <img src="https://img.icons8.com/pulsar-line/64/shield.png" class="mx-auto mb-4"/>
+          <h3 class="text-xl font-semibold">Secure & Transparent</h3>
+          <p class="text-gray-600">Built on Solana with immutable records and open tokenomics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tokenomics" class="py-20 bg-cyan-50" data-aos="fade-up">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-8 text-gray-800">Tokenomics</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg">
+        <div class="bg-white p-6 rounded-xl shadow" data-aos="fade-right">
+          <p><strong>Total Supply:</strong> 21,000,000 SCY</p>
+          <p><strong>Token Type:</strong> SPL (Solana)</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow" data-aos="fade-left">
+          <p><strong>Public Distribution:</strong> 90%</p>
+          <p><strong>Initial Holder Locked:</strong> 10%</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="roadmap" class="py-20 bg-white" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-10 text-gray-800">SANCHAY Roadmap (2025 - 2026)</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="p-6 bg-cyan-50 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="100">
+          <h3 class="text-xl font-semibold text-cyan-600 mb-2">Q2 2025</h3>
+          <ul class="text-gray-600 text-sm space-y-1">
+            <li>- Token Launch on Solana</li>
+            <li>- Website + Whitepaper Launch</li>
+            <li>- Community building on X & Telegram</li>
+            <li>- Phase 1 Airdrop</li>
+          </ul>
+        </div>
+        <div class="p-6 bg-cyan-50 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="200">
+          <h3 class="text-xl font-semibold text-cyan-600 mb-2">Q3 2025</h3>
+          <ul class="text-gray-600 text-sm space-y-1">
+            <li>- Raydium Liquidity Pool Expansion</li>
+            <li>- Phase 2 Airdrops & Campaigns</li>
+            <li>- Listings in free crypto directories</li>
+            <li>- Initial influencer collaborations</li>
+          </ul>
+        </div>
+        <div class="p-6 bg-cyan-50 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="300">
+          <h3 class="text-xl font-semibold text-cyan-600 mb-2">Q4 2025</h3>
+          <ul class="text-gray-600 text-sm space-y-1">
+            <li>- Official community verification process</li>
+            <li>- Launch of SCY holder rewards</li>
+            <li>- DAO-lite governance proposal</li>
+            <li>- Liquidity scaling & dashboards</li>
+          </ul>
+        </div>
+        <div class="p-6 bg-cyan-50 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="400">
+          <h3 class="text-xl font-semibold text-cyan-600 mb-2">Q1 2026</h3>
+          <ul class="text-gray-600 text-sm space-y-1">
+            <li>- SCY Wallet Integrations</li>
+            <li>- NFT-based access system (optional)</li>
+            <li>- Community voting & feature proposals</li>
+            <li>- Global partnership outreach</li>
+          </ul>
+        </div>
+        <div class="p-6 bg-cyan-50 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="500">
+          <h3 class="text-xl font-semibold text-cyan-600 mb-2">Q2 2026</h3>
+          <ul class="text-gray-600 text-sm space-y-1">
+            <li>- Finalize staking mechanics</li>
+            <li>- Long-term liquidity locking</li>
+            <li>- Major exchange listing attempts</li>
+            <li>- Whitepaper v2 release</li>
+            <li>- Blockchain development exploration begins</li>
+            <li>- Community-funded research phase</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="vision" class="py-20 bg-cyan-50" data-aos="fade-up">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">Our Vision</h2>
+      <p class="text-lg text-gray-700 leading-relaxed">SANCHAY is more than a token — it's a digital wealth guardian created for those who believe in the power of disciplined saving, long-term holding, and decentralized trust. We aim to make SCY a symbol of purpose, simplicity, and savings in the world of digital assets.</p>
+    </div>
+  </section>
+
+  <section id="utility" class="py-20 bg-white" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-10">Token Utility</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+        <div>
+          <h3 class="text-xl font-semibold text-cyan-600 mb-2">Store of Value</h3>
+          <p class="text-gray-600">SCY is a long-term saving token with a capped supply of 21 million, echoing scarcity and discipline.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-cyan-600 mb-2">Community Distribution</h3>
+          <p class="text-gray-600">No presales. No VC. 50% of the tokens are for the community via airdrops, LP, and engagement.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-cyan-600 mb-2">Future Governance</h3>
+          <p class="text-gray-600">Planned DAO-lite model for community-driven upgrades and decisions in future phases.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="py-20 bg-cyan-100" data-aos="fade-up">
+    <div class="max-w-5xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Frequently Asked Questions</h2>
+      <div class="space-y-6 text-left">
+        <div>
+          <h3 class="font-semibold text-cyan-700">What is SANCHAY ($SCY)?</h3>
+          <p class="text-gray-700">SCY is a fixed-supply Solana token created to encourage saving and long-term value holding in the digital world.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-cyan-700">Where can I buy SCY?</h3>
+          <p class="text-gray-700">You can buy SCY on Raydium using the official mint address provided above via the Buy/Sell section.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-cyan-700">What wallets support SCY?</h3>
+          <p class="text-gray-700">SCY is an SPL token supported by Phantom and other Solana-compatible wallets.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-cyan-700">Is there a team or is it community-led?</h3>
+          <p class="text-gray-700">SANCHAY is anonymous and community-driven, with no centralized authority or presale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="chart" class="py-20 bg-white" data-aos="fade-up">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-6">Live Price Chart</h2>
+      <iframe src="https://dexscreener.com/solana/EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD" width="100%" height="500" style="border: none; border-radius: 10px;"></iframe>
+    </div>
+  </section>
+
+  <section id="buy" class="py-20 bg-cyan-100" data-aos="zoom-in">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">Buy / Sell $SCY</h2>
+      <p class="text-gray-700 mb-6">SCY is available on Raydium. Swap SOL for SCY easily with Phantom Wallet.</p>
+      <code class="block mb-4 p-3 bg-white rounded text-sm text-purple-700">Token Address: EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD</code>
+      <a href="https://raydium.io/swap/?inputCurrency=sol&outputCurrency=EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD" target="_blank" class="inline-block px-6 py-3 bg-cyan-600 text-white font-semibold rounded-full shadow hover:bg-cyan-700">Trade on Raydium</a>
+    </div>
+  </section>
+
+  <section id="updates" class="py-20 bg-white" data-aos="fade-up">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">Latest News & Updates</h2>
+      <p class="text-gray-600 mb-4">Stay informed with the latest developments, events, and updates from SANCHAY.</p>
+      <div class="space-y-3 text-left text-gray-700">
+        <p>📢 Phase 1 Airdrop Concluded – Results live soon.</p>
+        <p>🛠️ Liquidity pool expanded by 1000+ SCY on Raydium.</p>
+        <p>🌐 Website upgrade with full roadmap and utilities live now.</p>
+        <p>⚙️ Blockchain exploration begins in Q2 2026!</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="py-20 bg-cyan-50" data-aos="fade-up">
+    <div class="max-w-xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">Connect With Us</h2>
+      <p class="text-gray-600 mb-6">Got questions or want to partner with SANCHAY? Reach out to us through our official channels.</p>
+      <div class="flex justify-center space-x-6">
+        <a href="https://twitter.com/SANCHAY892616" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/30/000000/twitter.png" alt="Twitter">
+        </a>
+        <a href="https://t.me/Sanchayofficial" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/30/000000/telegram-app.png" alt="Telegram">
+        </a>
+      </div>
+      <p class="mt-4 text-sm text-gray-500">SANCHAY is a decentralized project – all initiatives are transparent and open to community feedback.</p>
+    </div>
+  </section>
+
+  <footer class="bg-cyan-50 py-6 text-center text-sm text-gray-500">
+    <p>&copy; 2025 SANCHAY | Designed with purpose & powered by community</p>
+  <div class="flex justify-center items-center space-x-6 py-4">
+    <a href="https://twitter.com/SANCHAY892616" target="_blank">
+      <img src="https://img.icons8.com/ios-filled/30/000000/twitter.png" alt="X (Twitter)" class="hover:scale-110 transition-transform duration-200">
+    </a>
+    <a href="https://t.me/Sanchayofficial" target="_blank">
+      <img src="https://img.icons8.com/ios-filled/30/000000/telegram-app.png" alt="Telegram" class="hover:scale-110 transition-transform duration-200">
+    </a>
   </div>
 
-  <section id="about" class="section">
-    <h3>About SANCHAY</h3>
-    <p>SANCHAY ($SCY) is a purpose-driven token symbolizing savings, value preservation, and mass adoption. Powered by Solana’s high-speed, low-cost blockchain, SCY is the rare vault for the digital age.</p>
-  </section>
+</footer>
 
-  <section id="tokenomics" class="section">
-    <h3>Tokenomics</h3>
-    <ul>
-      <li>Total Supply: 21,000,000 SCY (Fixed)</li>
-      <li>Initial Public Circulation Target: 90%</li>
-      <li>Liquidity Bootstrapping via Community Growth</li>
-      <li>No Premine / No Hidden Tax / Transparent Smart Contract</li>
-    </ul>
-  </section>
-
-  <section id="roadmap" class="section">
-    <h3>Roadmap (1-Year View)</h3>
-    <ul class="roadmap">
-      <li>Q2 2025: Launch Token, Website, and Airdrop Mission #1</li>
-      <li>Q3 2025: Community Expansion, Listings on Free Directories</li>
-      <li>Q4 2025: Liquidity Loops, Strategic Partner Listings</li>
-      <li>Q1 2026: Blockchain Prototype & Utility Expansion</li>
-    </ul>
-  </section>
-
-  <section id="faq" class="section">
-    <h3>FAQ</h3>
-    <ul class="faq">
-      <li><strong>What is SCY?</strong> A Solana-based fixed-supply savings token</li>
-      <li><strong>Is there a team?</strong> Anonymous. Community-powered like Bitcoin.</li>
-      <li><strong>Where can I trade SCY?</strong> On Raydium and Solana-compatible DEXs</li>
-    </ul>
-  </section>
-
-  <section class="section updates">
-    <h3>Latest Updates</h3>
-    <ul>
-      <li>Website Relaunch (April 20, 2025)</li>
-      <li>Airdrop Tool V4 integrated successfully</li>
-      <li>Dex Screener Tracking: Coming Soon</li>
-    </ul>
-  </section>
-
-  <section class="section">
-    <h3>Live SCY Chart</h3>
-    <iframe src="https://dexscreener.com/solana/EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD"></iframe>
-  </section>
-
-  <footer>
-    Built with love for the community. HODL $SCY and be part of the vault revolution.
-  </footer>
+  <script>
+    AOS.init({ once: true });
+  </script>
 </body>
 </html>
