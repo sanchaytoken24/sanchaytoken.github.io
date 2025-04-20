@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SANCHAY Airdrop Tool V3</title>
+  <title>SANCHAY Airdrop Tool V3 (Fixed)</title>
   <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@solana/spl-token@0.3.5/lib/index.iife.min.js"></script>
   <style>
-    body { font-family: 'Segoe UI', sans-serif; background: #fdf6ec; padding: 20px; text-align: center; }
-    h1 { color: #e79a00; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f7fdf9; padding: 20px; text-align: center; }
+    h1 { color: #008f53; }
     input, button { margin: 10px; padding: 10px; width: 80%; max-width: 400px; font-size: 16px; }
     table { margin: 20px auto; width: 90%; border-collapse: collapse; }
     th, td { border: 1px solid #ccc; padding: 8px; text-align: center; font-size: 14px; }
-    th { background-color: #ffe8b3; }
-    #output { margin-top: 20px; white-space: pre-wrap; font-family: monospace; background: #fff3d4; padding: 10px; border-radius: 10px; }
+    th { background-color: #d0f0e9; }
+    #output { margin-top: 20px; white-space: pre-wrap; font-family: monospace; background: #e6fff3; padding: 10px; border-radius: 10px; }
   </style>
 </head>
 <body>
-  <h1>SANCHAY Airdrop Tool V3</h1>
-  <p>Connect Phantom Wallet and send SCY tokens in batch with full control</p>
+  <h1>SANCHAY Airdrop Tool V3 (Updated)</h1>
+  <p>Connect your Phantom wallet and upload your verified CSV to begin the airdrop.</p>
 
   <input type="file" id="fileInput" accept=".csv" />
   <br>
@@ -26,20 +26,19 @@
   <button onclick="prepareTransfers()">Prepare Airdrop Table</button>
   <button onclick="startTransfers()">Start Airdrop</button>
 
+  <div id="output"></div>
+
   <table id="transferTable">
     <thead>
       <tr>
         <th>#</th>
-        <th>Wallet Address</th>
+        <th>Wallet</th>
         <th>Amount</th>
         <th>Status</th>
-        <th>Action</th>
       </tr>
     </thead>
     <tbody id="tableBody"></tbody>
   </table>
-
-  <div id="output"></div>
 
   <script>
     const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
@@ -47,26 +46,33 @@
     let wallet = null;
     let entries = [];
 
+    function log(msg) {
+      const out = document.getElementById('output');
+      out.textContent += msg + "\n";
+    }
+
     async function connectWallet() {
-      if (window.solana && window.solana.isPhantom) {
+      try {
         const resp = await window.solana.connect();
         wallet = resp.publicKey;
-        log(`Connected to: ${wallet.toBase58()}`);
-      } else {
-        alert("Phantom Wallet not found");
+        log(`Connected wallet: ${wallet.toBase58()}`);
+      } catch (err) {
+        log("Phantom Wallet connection failed: " + err.message);
       }
     }
 
     function prepareTransfers() {
       const file = document.getElementById('fileInput').files[0];
-      if (!file) return alert("Please upload CSV file");
+      if (!file) return log("Please upload a CSV file");
+
       const reader = new FileReader();
       reader.onload = (e) => {
         const lines = e.target.result.trim().split('\n');
         entries = lines.map((line, i) => {
           const [address, amount] = line.split(',');
-          return { id: i + 1, address: address.trim(), amount: parseFloat(amount), status: 'Pending', skip: false };
+          return { index: i + 1, address: address.trim(), amount: parseFloat(amount), status: 'Pending' };
         });
+        log(`Loaded ${entries.length} entries from CSV`);
         renderTable();
       };
       reader.readAsText(file);
@@ -78,91 +84,61 @@
       entries.forEach((entry, i) => {
         const row = document.createElement('tr');
         row.innerHTML = `
-          <td>${entry.id}</td>
+          <td>${entry.index}</td>
           <td>${entry.address}</td>
           <td>${entry.amount}</td>
           <td id="status-${i}">${entry.status}</td>
-          <td><button onclick="toggleEntry(${i})">${entry.skip ? 'Undo' : 'Skip'}</button></td>
         `;
         body.appendChild(row);
       });
     }
 
-    function toggleEntry(index) {
-      entries[index].skip = !entries[index].skip;
-      entries[index].status = entries[index].skip ? 'Skipped' : 'Pending';
-      renderTable();
-    }
-
     async function startTransfers() {
-      if (!wallet) return alert("Connect wallet first");
+      if (!wallet) return log("Please connect Phantom wallet first.");
       const token = new splToken.Token(connection, SCY_MINT, splToken.TOKEN_PROGRAM_ID, wallet);
 
       for (let i = 0; i < entries.length; i++) {
-        const e = entries[i];
-        if (e.skip || e.status !== 'Pending') continue;
+        const entry = entries[i];
         try {
-          const recipient = new solanaWeb3.PublicKey(e.address);
-
+          const toPubKey = new solanaWeb3.PublicKey(entry.address);
           const senderATA = await splToken.Token.getAssociatedTokenAddress(
-            splToken.ASSOCIATED_TOKEN_PROGRAM_ID,
-            splToken.TOKEN_PROGRAM_ID,
-            SCY_MINT,
-            wallet
+            splToken.ASSOCIATED_TOKEN_PROGRAM_ID, splToken.TOKEN_PROGRAM_ID, SCY_MINT, wallet
           );
-
           const recipientATA = await splToken.Token.getAssociatedTokenAddress(
-            splToken.ASSOCIATED_TOKEN_PROGRAM_ID,
-            splToken.TOKEN_PROGRAM_ID,
-            SCY_MINT,
-            recipient
+            splToken.ASSOCIATED_TOKEN_PROGRAM_ID, splToken.TOKEN_PROGRAM_ID, SCY_MINT, toPubKey
           );
 
-          const receiverInfo = await connection.getAccountInfo(recipientATA);
+          const recipientInfo = await connection.getAccountInfo(recipientATA);
           const tx = new solanaWeb3.Transaction();
 
-          if (!receiverInfo) {
+          if (!recipientInfo) {
             tx.add(
               splToken.Token.createAssociatedTokenAccountInstruction(
-                wallet,
-                recipientATA,
-                recipient,
-                SCY_MINT,
-                splToken.TOKEN_PROGRAM_ID,
-                splToken.ASSOCIATED_TOKEN_PROGRAM_ID
+                wallet, recipientATA, toPubKey, SCY_MINT
               )
             );
           }
 
           tx.add(
             splToken.Token.createTransferInstruction(
-              splToken.TOKEN_PROGRAM_ID,
-              senderATA,
-              recipientATA,
-              wallet,
-              [],
-              e.amount
+              splToken.TOKEN_PROGRAM_ID, senderATA, recipientATA, wallet, [], entry.amount
             )
           );
 
           tx.feePayer = wallet;
-          const { blockhash } = await connection.getRecentBlockhash();
-          tx.recentBlockhash = blockhash;
+          tx.recentBlockhash = (await connection.getRecentBlockhash()).blockhash;
           const signed = await window.solana.signTransaction(tx);
           const sig = await connection.sendRawTransaction(signed.serialize());
           await connection.confirmTransaction(sig);
 
-          e.status = 'Sent';
+          entry.status = 'Sent';
+          document.getElementById(`status-${i}`).textContent = 'Sent';
         } catch (err) {
-          e.status = 'Failed';
-          log(`Error sending to ${e.address}: ${err.message}`);
+          entry.status = 'Failed';
+          document.getElementById(`status-${i}`).textContent = 'Failed';
+          log(`Error for ${entry.address}: ${err.message}`);
         }
-        document.getElementById(`status-${i}`).textContent = e.status;
       }
-    }
-
-    function log(msg) {
-      document.getElementById('output').textContent += msg + '\n';
     }
   </script>
 </body>
