@@ -4,18 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SANCHAY ($SNCY) | Vault Your Future</title>
-  <link rel="icon" type="image/png" href="final_logo.png" />
+  <link rel="icon" href="assets/final_logo.png" />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600&display=swap" rel="stylesheet" />
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <style>
     body {
       margin: 0;
       font-family: 'Sora', sans-serif;
       color: #EDEDED;
-      background: url('final_wizard.png') no-repeat center top;
-      background-size: auto 300%;
-      background-attachment: scroll;
-      background-repeat: no-repeat;
+      background: url('assets/final_wizard.png') no-repeat center top;
+      background-size: cover;
+      background-attachment: fixed;
     }
     header, footer {
       background: rgba(0, 0, 0, 0.5);
@@ -24,14 +22,14 @@
     }
     nav a {
       color: #00C2FF;
-      margin: 0 15px;
+      margin: 0 12px;
       text-decoration: none;
       font-weight: 600;
-      text-shadow: 0 0 8px #00C2FF;
+      text-shadow: 0 0 6px #00C2FF;
     }
     nav a:hover {
       color: #FFD700;
-      text-shadow: 0 0 12px #FFD700;
+      text-shadow: 0 0 10px #FFD700;
     }
     .hero {
       display: flex;
@@ -41,13 +39,13 @@
       min-height: 100vh;
       padding: 4rem 2rem;
       text-align: center;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.4);
     }
     .hero h1 {
       font-size: 3rem;
       margin: 1rem 0;
       color: #F2B134;
-      text-shadow: 0 0 12px #F2B134;
+      text-shadow: 0 0 14px #F2B134;
     }
     .hero p {
       font-size: 1.2rem;
@@ -66,6 +64,7 @@
       font-weight: bold;
       border-radius: 8px;
       box-shadow: 0 0 10px #00C2FF;
+      text-decoration: none;
     }
     .btn:hover {
       background-color: #FFD700;
@@ -73,148 +72,32 @@
       transform: scale(1.05);
       box-shadow: 0 0 15px #FFD700;
     }
-    .section {
-      padding: 3rem 2rem;
-      background: rgba(255, 255, 255, 0.1);
-      margin: 2rem;
-      border-radius: 16px;
-      backdrop-filter: blur(12px);
-    }
-    .section h2 {
-      color: #FFD700;
-      text-shadow: 0 0 8px #FFD700;
-    }
-    table {
-      width: 100%;
-      margin-top: 1rem;
-      border-collapse: collapse;
-      background-color: rgba(255, 255, 255, 0.05);
-    }
-    table, th, td {
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    th, td {
-      padding: 12px;
-      text-align: left;
-    }
-    th {
-      background-color: rgba(255, 215, 0, 0.1);
-    }
-    iframe {
-      width: 100%;
-      height: 500px;
-      border: none;
-      margin-top: 1rem;
-      border-radius: 12px;
-    }
     footer {
       font-size: 0.9rem;
       color: #aaa;
+      margin-top: 2rem;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="final_logo.png" alt="SANCHAY Logo" height="60" />
+    <img src="assets/final_logo.png" alt="SANCHAY Logo" height="60" />
     <nav>
-      <a href="#about">About</a>
-      <a href="#vision">Vision</a>
-      <a href="#tokenomics">Tokenomics</a>
-      <a href="#roadmap">Roadmap</a>
-      <a href="#chart">Live Chart</a>
-      <a href="#founder">Founder's Letter</a>
-      <a href="#contact">Contact</a>
+      <a href="about.html">About</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="founder.html">Founder's Letter</a>
+      <a href="wizard.html">Memebreaker</a>
+      <a href="chart.html">Chart</a>
+      <a href="contact.html">Contact</a>
     </nav>
   </header>
 
   <section class="hero">
     <h1>Save. Hold. Grow.</h1>
     <p>Vault your future with SANCHAY ($SNCY)<br />Decentralized saving. Borderless growth.<br />Powered by Solana. Designed for dreamers.</p>
-    <button class="btn" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">Explore SANCHAY</button>
-    <button class="btn" onclick="document.getElementById('roadmap').scrollIntoView({behavior: 'smooth'})">View Roadmap</button>
-    <button class="btn" onclick="window.open('https://raydium.io/swap/?inputCurrency=sol&outputCurrency=EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD','_blank')">Buy on Raydium</button>
-  </section>
-
-  <section class="section" id="about">
-    <h2>About SANCHAY</h2>
-    <p>SANCHAY ($SNCY) is a decentralized savings revolution. Built on the Solana blockchain, it’s a secure, fast, and community-driven digital vault for long-term holders. With a fixed supply, locked liquidity, and transparent tokenomics — it rewards patience and purpose.</p>
-  </section>
-
-  <section class="section" id="vision">
-    <h2>Vision & Mission</h2>
-    <p><strong>Vision:</strong> To build a global decentralized vault where savings are protected and grow independently.<br /><br />
-    <strong>Mission:</strong><br />
-    - Empower savers with decentralized tools<br />
-    - Ensure transparency via public tokenomics<br />
-    - Launch reward, governance, and NFT vault tokens<br />
-    - Promote financial literacy through community campaigns<br />
-    - Reward patience in Web3 world</p>
-  </section>
-
-  <section class="section" id="tokenomics">
-    <h2>Tokenomics</h2>
-    <table>
-      <tr><th>Attribute</th><th>Details</th></tr>
-      <tr><td>Token Name</td><td>SANCHAY</td></tr>
-      <tr><td>Token Symbol</td><td>SNCY</td></tr>
-      <tr><td>Blockchain</td><td>Solana</td></tr>
-      <tr><td>Token Standard</td><td>SPL</td></tr>
-      <tr><td>Total Supply</td><td>21,000,000 SNCY</td></tr>
-      <tr><td>Contract Address</td><td>EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD</td></tr>
-    </table>
-    <h3 style="margin-top:2rem; color:#FFD700">Token Allocation</h3>
-    <table>
-      <tr><th>Category</th><th>Allocation</th><th>Purpose</th></tr>
-      <tr><td>Public Distribution</td><td>90%</td><td>Airdrops, Incentives, Exchanges</td></tr>
-      <tr><td>Project Reserve</td><td>5%</td><td>Ecosystem Growth</td></tr>
-      <tr><td>Liquidity Pool</td><td>5%</td><td>Locked Liquidity</td></tr>
-    </table>
-  </section>
-
-  <section class="section" id="roadmap">
-    <h2>Roadmap</h2>
-    <table>
-      <tr><th>Phase</th><th>Milestones</th></tr>
-      <tr><td>Phase 1</td><td>Token Launch, Liquidity Lock, Airdrop, Website Live</td></tr>
-      <tr><td>Phase 2</td><td>IPFS Metadata, GeckoTerminal Integration, Loyalty Programs</td></tr>
-      <tr><td>Phase 3</td><td>Launch of SANCTUM, CREDO, VAULTEX Tokens & Governance</td></tr>
-      <tr><td>Phase 4</td><td>Marketplace Launch, P2P Payment, DAO Setup</td></tr>
-      <tr><td>Phase 5</td><td>Cross-Chain Bridges, Fiat Onramps, Institutional Vaults</td></tr>
-    </table>
-  </section>
-
-  <section class="section" id="chart">
-    <h2>Live Chart</h2>
-    <iframe src="https://www.geckoterminal.com/solana/pools/9KUSMWzuTzhe4ZBE6dRp8usy1aMdZgGrMaob5pf27Dp2"></iframe>
-  </section>
-
-  <section class="section" id="founder">
-    <h2>Founder's Letter</h2>
-    <p style="white-space: pre-wrap">
-Dear Sanchay Family,
-
-Once upon a time, our parents and grandparents didn’t chase charts or gamble on hype...
-(full text as you gave above)
-...
-SANCHAY is not just a token.
-It’s a decentralized legacy — built one smart saver at a time.
-
-Let’s vault our future together.
-
-With trust and belief,  
-Founder, Sanchay Token  
-    </p>
-  </section>
-
-  <section class="section" id="contact">
-    <h2>Connect With Us</h2>
-    <p>Website: <a href="https://sanchaytoken.xyz" target="_blank">sanchaytoken.xyz</a><br />
-    X: <a href="https://x.com/SANCHAY892616" target="_blank">@SANCHAY892616</a><br />
-    Telegram: <a href="https://t.me/Sanchayofficial" target="_blank">@Sanchayofficial</a><br />
-    Email: info24@sanchaytoken.xyz</p>
-    <br />
-    <h3 style="color:#FFD700">Latest Tweets</h3>
-    <a class="twitter-timeline" data-height="600" data-theme="dark" href="https://twitter.com/SANCHAY892616?ref_src=twsrc%5Etfw">Tweets by SANCHAY892616</a>
+    <a class="btn" href="about.html">Explore SANCHAY</a>
+    <a class="btn" href="roadmap.html">View Roadmap</a>
+    <a class="btn" href="https://raydium.io/swap/?inputCurrency=sol&outputCurrency=EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD" target="_blank">Buy on Raydium</a>
   </section>
 
   <footer>
