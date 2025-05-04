@@ -5,13 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SANCHAY ($SNCY) | Vault Your Future</title>
   <link rel="icon" type="image/png" href="final_logo.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Orbitron', sans-serif;
       color: #EDEDED;
-      background: #0A0F1C url('circuit_background.svg') repeat;
+      background-color: #0A0F1C;
+      background-image: url('circuit_background.svg');
       background-size: cover;
+      background-attachment: fixed;
       overflow-x: hidden;
     }
     header, footer {
@@ -24,6 +27,10 @@
       margin: 0 15px;
       text-decoration: none;
       font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #FFD700;
     }
     .hero {
       display: flex;
@@ -45,13 +52,6 @@
       font-size: 1.2rem;
       max-width: 600px;
     }
-    .section {
-      padding: 3rem 2rem;
-      border-top: 1px solid #333;
-    }
-    .section h2 {
-      color: #FFD700;
-    }
     .btn {
       padding: 0.8rem 1.5rem;
       background-color: #00C2FF;
@@ -61,6 +61,22 @@
       cursor: pointer;
       font-weight: bold;
       border-radius: 5px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .btn:hover {
+      background-color: #FFD700;
+      transform: scale(1.05);
+    }
+    .section {
+      padding: 3rem 2rem;
+      border-top: 1px solid #333;
+      transition: background-color 0.3s;
+    }
+    .section:hover {
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+    .section h2 {
+      color: #FFD700;
     }
     iframe {
       width: 100%;
@@ -92,8 +108,9 @@
     <img src="final_wizard.png" alt="Memebreaker Wizard" />
     <h1>Save. Hold. Grow.</h1>
     <p>Vault your future with SANCHAY ($SNCY)<br>Decentralized saving. Borderless growth.<br>Powered by Solana. Designed for dreamers.</p>
-    <button class="btn">Explore SANCHAY</button>
-    <button class="btn">View Roadmap</button>
+    <button class="btn" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'});">Explore SANCHAY</button>
+    <button class="btn" onclick="document.getElementById('roadmap').scrollIntoView({behavior: 'smooth'});">View Roadmap</button>
+    <button class="btn" onclick="window.open('https://raydium.io/swap/?inputCurrency=sol&outputCurrency=EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD', '_blank')">Buy on Raydium</button>
   </section>
 
   <section class="section" id="about">
@@ -143,6 +160,10 @@
       💬 Telegram: <a href="https://t.me/Sanchayofficial" target="_blank">@Sanchayofficial</a><br>
       📧 Email: info24@sanchaytoken.xyz
     </p>
+    <div style="margin-top:20px">
+      <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/Sanchay892616?ref_src=twsrc%5Etfw">Tweets by SANCHAY</a> 
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
   </section>
 
   <footer>
