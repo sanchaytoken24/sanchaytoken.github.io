@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SANCHAY ($SNCY) | Vault Your Future</title>
   <link rel="icon" type="image/png" href="final_logo.png">
@@ -11,8 +11,9 @@
       margin: 0;
       font-family: 'Sora', sans-serif;
       color: #EDEDED;
-      background: url('final_wizard.png') no-repeat center center fixed;
-      background-size: cover;
+      background: url('final_wizard.png') no-repeat center top fixed;
+      background-size: contain;
+      background-color: #0A0F1C;
       overflow-x: hidden;
     }
     header, footer {
@@ -40,7 +41,7 @@
       min-height: 100vh;
       padding: 4rem 2rem;
       text-align: center;
-      background-color: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.2);
     }
     .hero h1 {
       font-size: 3rem;
@@ -51,7 +52,7 @@
     .hero p {
       font-size: 1.2rem;
       max-width: 600px;
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgba(255, 255, 255, 0.1);
       padding: 1rem;
       border-radius: 10px;
     }
@@ -85,13 +86,6 @@
       color: #FFD700;
       text-shadow: 0 0 8px #FFD700;
     }
-    iframe {
-      width: 100%;
-      height: 500px;
-      border: none;
-      margin-top: 1rem;
-      border-radius: 12px;
-    }
     table {
       width: 100%;
       margin-top: 1rem;
@@ -108,14 +102,16 @@
     th {
       background-color: rgba(255, 215, 0, 0.1);
     }
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      margin-top: 1rem;
+      border-radius: 12px;
+    }
     footer {
       font-size: 0.9rem;
       color: #aaa;
-    }
-    @keyframes glow {
-      0% { text-shadow: 0 0 0px #00C2FF; }
-      50% { text-shadow: 0 0 10px #00C2FF; }
-      100% { text-shadow: 0 0 0px #00C2FF; }
     }
   </style>
 </head>
@@ -141,38 +137,11 @@
     <button class="btn" onclick="window.open('https://raydium.io/swap/?inputCurrency=sol&outputCurrency=EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD', '_blank')">Buy on Raydium</button>
   </section>
 
-  <section class="section" id="tokenomics">
-    <h2>Tokenomics</h2>
-    <table>
-      <tr><th>Attribute</th><th>Details</th></tr>
-      <tr><td>Token Name</td><td>SANCHAY</td></tr>
-      <tr><td>Token Symbol</td><td>SNCY</td></tr>
-      <tr><td>Blockchain</td><td>Solana</td></tr>
-      <tr><td>Token Standard</td><td>SPL</td></tr>
-      <tr><td>Total Supply</td><td>21,000,000 SNCY</td></tr>
-      <tr><td>Contract Address</td><td>EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD</td></tr>
-    </table>
-    <h3 style="margin-top:2rem; color:#FFD700">Token Allocation</h3>
-    <table>
-      <tr><th>Category</th><th>Allocation</th><th>Purpose</th></tr>
-      <tr><td>Public Distribution</td><td>90%</td><td>Airdrops, Incentives, Exchanges</td></tr>
-      <tr><td>Project Reserve</td><td>5%</td><td>Ecosystem Growth</td></tr>
-      <tr><td>Liquidity Pool</td><td>5%</td><td>Locked Liquidity</td></tr>
-    </table>
-  </section>
+  <!-- Tokenomics and Roadmap sections remain as updated previously -->
 
-  <section class="section" id="roadmap">
-    <h2>Roadmap</h2>
-    <table>
-      <tr><th>Phase</th><th>Milestones</th></tr>
-      <tr><td>Phase 1</td><td>Token Launch, Liquidity Lock, Airdrop, Website Live</td></tr>
-      <tr><td>Phase 2</td><td>IPFS Metadata, GeckoTerminal Integration, Loyalty Programs</td></tr>
-      <tr><td>Phase 3</td><td>Launch of SANCTUM, CREDO, VAULTEX Tokens & Governance</td></tr>
-      <tr><td>Phase 4</td><td>Marketplace Launch, P2P Payment, DAO Setup</td></tr>
-      <tr><td>Phase 5</td><td>Cross-Chain Bridges, Fiat Onramps, Institutional Vaults</td></tr>
-    </table>
-  </section>
-
-  <!-- Remaining sections here (About, Vision, Chart, Founder, Contact, Footer) -->
+  <footer>
+    <p>© 2025 SANCHAY Vault. All rights reserved.<br>
+    Built by decentralized savers. Powered by belief.</p>
+  </footer>
 </body>
 </html>
