@@ -2,118 +2,153 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SANCHAY ($SNCY) | Vault Your Future</title>
-  <link rel="icon" href="final_logo.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SANCHAY Vault - Save. Hold. Grow.</title>
+  <link rel="icon" href="final_logo.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
   <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Orbitron', sans-serif;
+      scroll-behavior: smooth;
+    }
+
     body {
-      margin: 0;
-      font-family: 'Sora', sans-serif;
-      color: #EDEDED;
-      background: url('final_wizard.png') no-repeat center center;
+      background: url('final.memebreaker_wizard.png') no-repeat center center fixed;
       background-size: cover;
-      background-attachment: fixed;
-      overflow-x: hidden;
+      color: #f0f0f0;
     }
-    header, footer {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 1rem 2rem;
-      text-align: center;
+
+    header {
+      backdrop-filter: blur(6px);
+      background: rgba(0, 0, 0, 0.6);
+      padding: 15px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 99;
     }
+
+    header img {
+      height: 40px;
+    }
+
     nav a {
-      color: #00C2FF;
-      margin: 0 15px;
+      margin-left: 20px;
+      color: #00ffe0;
       text-decoration: none;
       font-weight: 600;
-      text-shadow: 0 0 8px #00C2FF;
     }
-    nav a:hover {
-      color: #FFD700;
-      text-shadow: 0 0 12px #FFD700;
-    }
+
     .hero {
+      height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      padding: 4rem 2rem;
+      align-items: center;
       text-align: center;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.5);
     }
+
     .hero h1 {
       font-size: 3rem;
-      margin: 1rem 0;
-      color: #F2B134;
-      text-shadow: 0 0 20px #F2B134;
+      color: gold;
+      text-shadow: 0 0 8px #ffcc00;
     }
-    .glass-card {
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 2rem;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 20px rgba(0, 194, 255, 0.2);
-      max-width: 600px;
-      margin: 1rem auto;
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      color: #c0f8ff;
     }
-    .btn {
-      padding: 0.8rem 1.5rem;
-      background-color: #00C2FF;
-      color: #000;
-      border: none;
-      margin: 1rem;
-      cursor: pointer;
-      font-weight: bold;
-      border-radius: 8px;
-      box-shadow: 0 0 15px #00C2FF;
+
+    .hero .buttons {
+      margin-top: 30px;
+    }
+
+    .hero .buttons a {
+      padding: 12px 24px;
+      margin: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid #00ffe0;
+      border-radius: 10px;
       text-decoration: none;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
     }
-    .btn:hover {
-      background-color: #FFD700;
+
+    .hero .buttons a:hover {
+      background: #00ffe0;
       color: #000;
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #FFD700;
+      box-shadow: 0 0 10px #00ffe0;
     }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 30px;
+      margin: 60px auto;
+      max-width: 1000px;
+      box-shadow: 0 0 10px #00ffe0;
+    }
+
+    .card h2 {
+      color: gold;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
     footer {
+      background: rgba(0, 0, 0, 0.7);
+      text-align: center;
+      padding: 20px;
       font-size: 0.9rem;
       color: #aaa;
-      margin-top: 2rem;
     }
-    img.logo {
-      height: 60px;
-      margin-bottom: 1rem;
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
+
   <header>
-    <img src="final_logo.png" alt="SANCHAY Logo" class="logo" />
+    <img src="final_logo.png" alt="SANCHAY Logo" />
     <nav>
       <a href="about.html">About</a>
+      <a href="tokenomics.html">Tokenomics</a>
       <a href="roadmap.html">Roadmap</a>
-      <a href="founder.html">Founder's Letter</a>
+      <a href="vault.html">Vault</a>
       <a href="wizard.html">Memebreaker</a>
-      <a href="chart.html">Chart</a>
-      <a href="contact.html">Contact</a>
     </nav>
   </header>
 
   <section class="hero">
     <h1>Save. Hold. Grow.</h1>
-    <div class="glass-card">
-      <p>Vault your future with SANCHAY ($SNCY)<br />
-      Decentralized saving. Borderless growth.<br />
-      Powered by Solana. Designed for dreamers.</p>
+    <p>Vault your future with SANCHAY ($SNCY). Built on Solana. Powered by vision.</p>
+    <div class="buttons">
+      <a href="https://raydium.io/swap/?inputCurrency=sol&outputCurrency=EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD" target="_blank">Buy on Raydium</a>
+      <a href="roadmap.html">View Roadmap</a>
     </div>
-    <a class="btn" href="about.html">Explore SANCHAY</a>
-    <a class="btn" href="roadmap.html">View Roadmap</a>
-    <a class="btn" href="https://raydium.io/swap/?inputCurrency=sol&outputCurrency=EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD" target="_blank">Buy on Raydium</a>
+  </section>
+
+  <section class="card">
+    <h2>Why Choose SANCHAY?</h2>
+    <p>
+      SANCHAY is not a meme. It’s a mission. A fixed-supply, community-first token designed to bring back the lost art of saving. 
+      Built for digital discipline, SNCY empowers you to preserve, grow, and vault your wealth across generations.
+    </p>
   </section>
 
   <footer>
-    <p>© 2025 SANCHAY Vault. All rights reserved.<br />Built by decentralized savers. Powered by belief.</p>
+    &copy; 2025 SANCHAY Vault. All rights reserved. | Powered by decentralized community.<br />
+    Contact: info24@sanchaytoken.xyz
   </footer>
+
 </body>
 </html>
