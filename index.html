@@ -1,153 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SANCHAY Vault - Save. Hold. Grow.</title>
-  <link rel="icon" href="final_logo.png" type="image/png" />
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SANCHAY ($SNCY) | Vault Your Future</title>
+  <link rel="icon" type="image/png" href="final_logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <style>
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      font-family: 'Sora', sans-serif;
-      scroll-behavior: smooth;
-    }
-
     body {
-      background-image: url('https://raw.githubusercontent.com/sanchaySNCY/sanchay-token-assets/main/final.memebreaker_wizard.png');
-      background-attachment: fixed;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      color: #f0f0f0;
-    }
-
-    h1, h2, h3 {
+      margin: 0;
       font-family: 'Sora', sans-serif;
-      font-weight: 700;
-      text-shadow: 0 0 6px gold;
+      color: #EDEDED;
+      background: url('final_wizard.png') no-repeat center top;
+      background-size: auto 300%;
+      background-attachment: scroll;
+      background-repeat: no-repeat;
     }
-
-    header {
-      backdrop-filter: blur(6px);
-      background: rgba(0, 0, 0, 0.6);
-      padding: 15px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 99;
+    header, footer {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 1rem 2rem;
+      text-align: center;
     }
-
-    header img {
-      height: 40px;
-    }
-
     nav a {
-      margin-left: 20px;
-      color: #00ffe0;
+      color: #00C2FF;
+      margin: 0 15px;
       text-decoration: none;
       font-weight: 600;
-      text-shadow: 0 0 5px #00ffe0;
+      transition: all 0.3s;
+      text-shadow: 0 0 8px #00C2FF;
     }
-
     nav a:hover {
-      color: gold;
+      color: #FFD700;
+      text-shadow: 0 0 12px #FFD700;
     }
-
-    section.hero {
-      height: 100vh;
+    .hero {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 4rem 2rem;
       text-align: center;
+      background: rgba(0, 0, 0, 0.3);
     }
-
     .hero h1 {
-      font-size: 4rem;
-      color: gold;
+      font-size: 3rem;
+      margin: 1rem 0;
+      color: #F2B134;
+      text-shadow: 0 0 12px #F2B134;
     }
-
     .hero p {
       font-size: 1.2rem;
-      margin-top: 10px;
-      color: #c0f8ff;
-    }
-
-    .hero .buttons {
-      margin-top: 30px;
-    }
-
-    .hero .buttons a {
-      padding: 12px 24px;
-      margin: 10px;
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      border: 1px solid #00ffe0;
+      max-width: 600px;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 1rem;
       border-radius: 10px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      font-weight: bold;
-      text-shadow: 0 0 5px #00ffe0;
     }
-
-    .hero .buttons a:hover {
-      background: #00ffe0;
+    .btn {
+      padding: 0.8rem 1.5rem;
+      background-color: #00C2FF;
       color: #000;
-      box-shadow: 0 0 15px #00ffe0;
+      border: none;
+      margin: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: all 0.3s;
+      box-shadow: 0 0 10px #00C2FF;
     }
-
-    .card {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(12px);
+    .btn:hover {
+      background-color: #FFD700;
+      color: #000;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #FFD700;
+    }
+    .section {
+      padding: 3rem 2rem;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 2rem;
       border-radius: 16px;
-      padding: 30px;
-      margin: 60px auto;
-      max-width: 1000px;
-      box-shadow: 0 0 10px #00ffe0;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
-
-    .card h2 {
-      color: gold;
-      margin-bottom: 20px;
-      text-align: center;
-      font-size: 2.2rem;
+    .section h2 {
+      color: #FFD700;
+      text-shadow: 0 0 8px #FFD700;
     }
-
-    .card p, .card ul {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #e0f7fa;
+    table {
+      width: 100%;
+      margin-top: 1rem;
+      border-collapse: collapse;
+      background-color: rgba(255, 255, 255, 0.05);
     }
-
-    .card a {
-      color: #00ffe0;
-      text-decoration: none;
+    table, th, td {
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
-
-    .card a:hover {
-      color: gold;
-      text-shadow: 0 0 6px #ffd700;
+    th, td {
+      padding: 12px;
+      text-align: left;
     }
-
+    th {
+      background-color: rgba(255, 215, 0, 0.1);
+    }
     iframe {
       width: 100%;
-      height: 600px;
+      height: 500px;
       border: none;
+      margin-top: 1rem;
       border-radius: 12px;
-      margin-top: 40px;
-      box-shadow: 0 0 10px #00ffe0;
     }
-
     footer {
-      background: rgba(0, 0, 0, 0.7);
-      text-align: center;
-      padding: 20px;
       font-size: 0.9rem;
       color: #aaa;
     }
@@ -155,118 +118,111 @@
 </head>
 <body>
   <header>
-    <img src="final_logo.png" alt="SANCHAY Logo" />
+    <img src="final_logo.png" alt="SANCHAY Logo" height="60">
     <nav>
       <a href="#about">About</a>
       <a href="#vision">Vision</a>
       <a href="#tokenomics">Tokenomics</a>
       <a href="#roadmap">Roadmap</a>
-      <a href="#founder">Founder</a>
+      <a href="#chart">Live Chart</a>
+      <a href="#founder">Founder's Letter</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
   <section class="hero">
     <h1>Save. Hold. Grow.</h1>
-    <p>Vault your future with SANCHAY ($SNCY). Built on Solana. Powered by vision.</p>
-    <div class="buttons">
-      <a href="https://raydium.io/swap/?inputCurrency=sol&outputCurrency=EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD" target="_blank">Buy on Raydium</a>
-      <a href="#roadmap">View Roadmap</a>
-    </div>
+    <p>Vault your future with SANCHAY ($SNCY)<br>Decentralized saving. Borderless growth.<br>Powered by Solana. Designed for dreamers.</p>
+    <button class="btn" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'});">Explore SANCHAY</button>
+    <button class="btn" onclick="document.getElementById('roadmap').scrollIntoView({behavior: 'smooth'});">View Roadmap</button>
+    <button class="btn" onclick="window.open('https://raydium.io/swap/?inputCurrency=sol&outputCurrency=EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD', '_blank')">Buy on Raydium</button>
   </section>
 
-  <section id="about" class="card">
-    <h2>About SANCHAY</h2>
-    <p>SANCHAY is a decentralized savings revolution. Built on Solana, it's a secure, fast, and community-driven digital vault empowering people to save and grow wealth independently. With fixed supply, community-first tokenomics, and future Vault ecosystem tokens, it's your vault for the future.</p>
-  </section>
-
-  <section id="vision" class="card">
-    <h2>Vision & Mission</h2>
-    <p><strong>Vision:</strong> To build a global decentralized vault where savings are protected and grow independently.</p>
-    <p><strong>Mission:</strong></p>
-    <ul>
-      <li>Empower savers with a decentralized vault model</li>
-      <li>Ensure transparency through public tokenomics</li>
-      <li>Build staking, governance, and reward tokens</li>
-      <li>Promote digital saving habits in Web3 world</li>
-    </ul>
-  </section>
-
-  <section id="tokenomics" class="card">
-    <h2>Tokenomics</h2>
-    <p><strong>Token Name:</strong> SANCHAY<br>
-    <strong>Symbol:</strong> SNCY<br>
-    <strong>Total Supply:</strong> 21,000,000 SNCY<br>
-    <strong>Contract:</strong> EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD</p>
-    <ul>
-      <li><strong>90% Public Distribution:</strong> Airdrops, Rewards, Community</li>
-      <li><strong>5% Ecosystem Growth:</strong> Future Vault tools</li>
-      <li><strong>5% Liquidity:</strong> Secured for long-term</li>
-    </ul>
-  </section>
-
-  <section id="roadmap" class="card">
-    <h2>Roadmap</h2>
-    <p><strong>Phase 1: Foundation (Completed)</strong><br>
-    Deployment of SANCHAY ($SNCY) token on Solana blockchain<br>
-    Initial liquidity pool creation and locking on Raydium<br>
-    Launch of Phase 1 Community Airdrop<br>
-    Website launch (sanchaytoken.xyz)<br>
-    Token rebranding from SCY to SNCY for unique identity<br>
-    Verification on Solscan, Birdeye, DexScreener, Photon, GeckoTerminal</p>
-
-    <p><strong>Phase 2: Infrastructure Strengthening (Ongoing)</strong><br>
-    Metadata optimization with IPFS hosting and Solana Token List standards<br>
-    Multi-DEX liquidity expansion (Orca, Meteora, OpenBook planning)<br>
-    Community Growth Campaigns<br>
-    Vault Loyalty Initiatives and Early User Recognition<br>
-    Application for listings on CoinMarketCap, CoinGecko, and additional Solana aggregators</p>
-
-    <p><strong>Phase 3: Vault Ecosystem Launch (Q3-Q4 2025)</strong><br>
-    Introduction of SANCTUM (SANT): Vault Reward Token<br>
-    Introduction of CREDO (CRDO): Governance Token for Vault Community Decisions<br>
-    Introduction of VAULTEX (VLTX): NFT-Backed Vault Certificate Token<br>
-    Launch of Vault-to-Vault (V2V) Micro-Transaction Protocol<br>
-    Rollout of Vault Analytics Dashboard for Real-Time Savings Tracking</p>
-
-    <p><strong>Phase 4: Decentralized Marketplace Expansion (Early 2026)</strong><br>
-    Launch of Sanchay Marketplace for vault-backed asset trading<br>
-    Integration with Web3 Merchant Payment Systems<br>
-    Initiation of Vault Governance Council (Community DAO)<br>
-    Development of Vault Staking Pools<br>
-    Progressive Layer-2 Optimization for ultra-low fee micro-savings</p>
-
-    <p><strong>Phase 5: Global Scaling and Institutional Integration (Late 2026+)</strong><br>
-    Deployment of Cross-Chain Bridges (Ethereum, BSC)<br>
-    Fiat Onramp Integration (UPI-like payments)<br>
-    Creation of Institutional Vault Products (Family Vaults, Corporate Saving Plans)<br>
-    Establishment of SANCHAY Foundation for Financial Literacy<br>
-    Scaling the Vault Vision Globally</p>
-  </section>
-
-  <section id="founder" class="card">
+  <section class="section" id="founder">
     <h2>Founder's Letter</h2>
-    <p>Dear Sanchay Family,</p>
-    <p>[Include full original Founder’s letter text here]</p>
+    <p style="white-space: pre-wrap">Dear Sanchay Family,
+
+Once upon a time, our parents and grandparents didn’t chase charts or gamble on hype.
+They invested in something simple — Gold.
+Because they knew:
+What you save patiently today, will shine brightly tomorrow.
+
+Today, the world is faster, louder, and more distracted.
+Banks offer little. Inflation eats quietly.
+But the wisdom of saving endures.
+
+I created SANCHAY ($SNCY) because saving needs a new home —
+A vault built for the digital world.
+A vault without middlemen.
+A vault where your discipline becomes your destiny.
+
+The word "Sanchay" comes from ancient wisdom — it means "to save, to accumulate, to preserve for the future."
+It reflects not just an action, but a philosophy — that small, consistent savings create unstoppable strength over time.
+
+Imagine a future where:
+You save SNCY just like your parents saved gold.
+You transfer SNCY with one tap, like a simple UPI payment.
+You protect your dreams without permission, without borders.
+
+SANCHAY is not a meme, not a gamble.
+It’s a vault for real people with real futures.
+It rewards those who think beyond tomorrow’s noise.
+
+We have already:
+Locked liquidity
+Burned uncertain paths
+Laid the foundation for disciplined digital saving
+
+But this is only Chapter One.
+The chapters ahead will bring:
+Vault Savings Certificates
+Wallet-to-Wallet Savings Transfers
+A marketplace where savers, not speculators, rule the game.
+
+Remember —
+True wealth is not made by chasing trends.
+It is built by those who save early, hold wisely, and grow patiently.
+
+Our supply is scarce.
+As more holders join, SNCY becomes rarer.
+As rarity increases, value follows naturally.
+
+In banks, your money sleeps.
+In SANCHAY, your savings wake up, grow, and build your future.
+
+We don’t ask you to risk everything.
+We invite you to save smartly, consistently, and with pride.
+Just as gold grew over decades,
+SNCY will grow for those who save with vision.
+
+Buy. Hold. Grow.
+Make saving your habit.
+Make growth your destiny.
+
+SANCHAY is not just a token.
+It’s a decentralized legacy —
+built one smart saver at a time.
+
+Let’s vault our future together.
+
+With trust and belief,
+Founder, Sanchay Token</p>
   </section>
 
-  <section class="card">
-    <h2>Live Chart (GeckoTerminal)</h2>
-    <iframe src="https://www.geckoterminal.com/solana/pools/9KUSMWzuTzhe4ZBE6dRp8usy1aMdZgGrMaob5pf27Dp2?embed=1" loading="lazy"></iframe>
-  </section>
-
-  <section id="contact" class="card">
+  <section class="section" id="contact">
     <h2>Connect With Us</h2>
-    <ul>
-      <li>Website: <a href="https://sanchaytoken.xyz" target="_blank">sanchaytoken.xyz</a></li>
-      <li>X (Twitter): <a href="https://twitter.com/SANCHAY892616" target="_blank">@SANCHAY892616</a></li>
-      <li>Telegram: <a href="https://t.me/Sanchayofficial" target="_blank">@Sanchayofficial</a></li>
-      <li>Email: info24@sanchaytoken.xyz</li>
-    </ul>
+    <p>Website: <a href="https://sanchaytoken.xyz" target="_blank">sanchaytoken.xyz</a><br>
+    X: <a href="https://x.com/SANCHAY892616" target="_blank">@SANCHAY892616</a><br>
+    Telegram: <a href="https://t.me/Sanchayofficial" target="_blank">@Sanchayofficial</a><br>
+    Email: info24@sanchaytoken.xyz</p>
+    <br>
+    <h3 style="color:#FFD700">Latest Tweets</h3>
+    <a class="twitter-timeline" data-height="600" data-theme="dark" href="https://twitter.com/SANCHAY892616?ref_src=twsrc%5Etfw">Tweets by SANCHAY892616</a>
   </section>
 
   <footer>
-    &copy; 2025 SANCHAY Vault. All rights reserved. | Contact: info24@sanchaytoken.xyz
+    <p>© 2025 SANCHAY Vault. All rights reserved.<br>
+    Built by decentralized savers. Powered by belief.</p>
   </footer>
 </body>
 </html>
