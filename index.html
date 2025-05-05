@@ -49,7 +49,7 @@
       font-weight: 600;
     }
 
-    .hero {
+    section.hero {
       height: 100vh;
       display: flex;
       flex-direction: column;
@@ -110,6 +110,12 @@
       font-size: 2.2rem;
     }
 
+    .card p, .card ul {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #e0f7fa;
+    }
+
     footer {
       background: rgba(0, 0, 0, 0.7);
       text-align: center;
@@ -117,23 +123,17 @@
       font-size: 0.9rem;
       color: #aaa;
     }
-
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2.5rem; }
-      .hero p { font-size: 1rem; }
-    }
   </style>
 </head>
 <body>
-
   <header>
     <img src="final_logo.png" alt="SANCHAY Logo" />
     <nav>
-      <a href="about.html">About</a>
-      <a href="tokenomics.html">Tokenomics</a>
-      <a href="roadmap.html">Roadmap</a>
-      <a href="vault.html">Vault</a>
-      <a href="wizard.html">Memebreaker</a>
+      <a href="#about">About</a>
+      <a href="#vision">Vision</a>
+      <a href="#tokenomics">Tokenomics</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#founder">Founder</a>
     </nav>
   </header>
 
@@ -142,22 +142,112 @@
     <p>Vault your future with SANCHAY ($SNCY). Built on Solana. Powered by vision.</p>
     <div class="buttons">
       <a href="https://raydium.io/swap/?inputCurrency=sol&outputCurrency=EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD" target="_blank">Buy on Raydium</a>
-      <a href="roadmap.html">View Roadmap</a>
+      <a href="#roadmap">View Roadmap</a>
     </div>
   </section>
 
-  <section class="card">
-    <h2>Why Choose SANCHAY?</h2>
-    <p>
-      SANCHAY is not a meme. It’s a mission. A fixed-supply, community-first token designed to bring back the lost art of saving. 
-      Built for digital discipline, SNCY empowers you to preserve, grow, and vault your wealth across generations.
-    </p>
+  <section id="about" class="card">
+    <h2>About SANCHAY</h2>
+    <p>SANCHAY is a decentralized savings revolution. Built on Solana, it's a secure, fast, and community-driven digital vault empowering people to save and grow wealth independently. With fixed supply, community-first tokenomics, and future Vault ecosystem tokens, it's your vault for the future.</p>
+  </section>
+
+  <section id="vision" class="card">
+    <h2>Vision & Mission</h2>
+    <p><strong>Vision:</strong> To build a global decentralized vault where savings are protected and grow independently.</p>
+    <p><strong>Mission:</strong></p>
+    <ul>
+      <li>Empower savers with a decentralized vault model</li>
+      <li>Ensure transparency through public tokenomics</li>
+      <li>Build staking, governance, and reward tokens</li>
+      <li>Promote digital saving habits in Web3 world</li>
+    </ul>
+  </section>
+
+  <section id="tokenomics" class="card">
+    <h2>Tokenomics</h2>
+    <p><strong>Token Name:</strong> SANCHAY<br>
+    <strong>Symbol:</strong> SNCY<br>
+    <strong>Total Supply:</strong> 21,000,000 SNCY<br>
+    <strong>Contract:</strong> EaeryGrfbM4R3p133WV5SF3jNG1Dh1oL6V9igYp7q1FD</p>
+    <ul>
+      <li><strong>90% Public Distribution:</strong> Airdrops, Rewards, Community</li>
+      <li><strong>5% Ecosystem Growth:</strong> Future Vault tools</li>
+      <li><strong>5% Liquidity:</strong> Secured for long-term</li>
+    </ul>
+  </section>
+
+  <section id="roadmap" class="card">
+    <h2>Roadmap</h2>
+    <p><strong>Phase 1: Foundation (Completed)</strong><br>
+    Deployment of SANCHAY ($SNCY) token on Solana blockchain<br>
+    Initial liquidity pool creation and locking on Raydium<br>
+    Launch of Phase 1 Community Airdrop<br>
+    Website launch (sanchaytoken.xyz)<br>
+    Token rebranding from SCY to SNCY for unique identity<br>
+    Verification on Solscan, Birdeye, DexScreener, Photon, GeckoTerminal</p>
+
+    <p><strong>Phase 2: Infrastructure Strengthening (Ongoing)</strong><br>
+    Metadata optimization with IPFS hosting and Solana Token List standards<br>
+    Multi-DEX liquidity expansion (Orca, Meteora, OpenBook planning)<br>
+    Community Growth Campaigns<br>
+    Vault Loyalty Initiatives and Early User Recognition<br>
+    Application for listings on CoinMarketCap, CoinGecko, and additional Solana aggregators</p>
+
+    <p><strong>Phase 3: Vault Ecosystem Launch (Q3-Q4 2025)</strong><br>
+    Introduction of SANCTUM (SANT): Vault Reward Token<br>
+    Introduction of CREDO (CRDO): Governance Token for Vault Community Decisions<br>
+    Introduction of VAULTEX (VLTX): NFT-Backed Vault Certificate Token<br>
+    Launch of Vault-to-Vault (V2V) Micro-Transaction Protocol<br>
+    Rollout of Vault Analytics Dashboard for Real-Time Savings Tracking</p>
+
+    <p><strong>Phase 4: Decentralized Marketplace Expansion (Early 2026)</strong><br>
+    Launch of Sanchay Marketplace for vault-backed asset trading<br>
+    Integration with Web3 Merchant Payment Systems<br>
+    Initiation of Vault Governance Council (Community DAO)<br>
+    Development of Vault Staking Pools<br>
+    Progressive Layer-2 Optimization for ultra-low fee micro-savings</p>
+
+    <p><strong>Phase 5: Global Scaling and Institutional Integration (Late 2026+)</strong><br>
+    Deployment of Cross-Chain Bridges (Ethereum, BSC)<br>
+    Fiat Onramp Integration (UPI-like payments)<br>
+    Creation of Institutional Vault Products (Family Vaults, Corporate Saving Plans)<br>
+    Establishment of SANCHAY Foundation for Financial Literacy<br>
+    Scaling the Vault Vision Globally</p>
+  </section>
+
+  <section id="founder" class="card">
+    <h2>Founder's Letter</h2>
+    <p>Dear Sanchay Family,</p>
+    <p>Once upon a time, our parents and grandparents didn’t chase charts or gamble on hype. They invested in something simple — Gold. Because they knew: What you save patiently today, will shine brightly tomorrow.</p>
+    <p>Today, the world is faster, louder, and more distracted. Banks offer little. Inflation eats quietly. But the wisdom of saving endures.</p>
+    <p>I created SANCHAY ($SNCY) because saving needs a new home — A vault built for the digital world. A vault without middlemen. A vault where your discipline becomes your destiny.</p>
+    <p>The word "Sanchay" comes from ancient wisdom — it means "to save, to accumulate, to preserve for the future." It reflects not just an action, but a philosophy — that small, consistent savings create unstoppable strength over time.</p>
+    <p>Imagine a future where:<br>
+    You save SNCY just like your parents saved gold.<br>
+    You transfer SNCY with one tap, like a simple UPI payment.<br>
+    You protect your dreams without permission, without borders.</p>
+    <p>SANCHAY is not a meme, not a gamble. It’s a vault for real people with real futures. It rewards those who think beyond tomorrow’s noise.</p>
+    <p>We have already:<br>
+    Locked liquidity<br>
+    Burned uncertain paths<br>
+    Laid the foundation for disciplined digital saving</p>
+    <p>But this is only Chapter One. The chapters ahead will bring:<br>
+    Vault Savings Certificates<br>
+    Wallet-to-Wallet Savings Transfers<br>
+    A marketplace where savers, not speculators, rule the game.</p>
+    <p>Remember — True wealth is not made by chasing trends. It is built by those who save early, hold wisely, and grow patiently.</p>
+    <p>Our supply is scarce. As more holders join, SNCY becomes rarer. As rarity increases, value follows naturally.</p>
+    <p>In banks, your money sleeps. In SANCHAY, your savings wake up, grow, and build your future.</p>
+    <p>We don’t ask you to risk everything. We invite you to save smartly, consistently, and with pride. Just as gold grew over decades, SNCY will grow for those who save with vision.</p>
+    <p>Buy. Hold. Grow. Make saving your habit. Make growth your destiny.</p>
+    <p>SANCHAY is not just a token. It’s a decentralized legacy — built one smart saver at a time.</p>
+    <p>Let’s vault our future together.</p>
+    <p>With trust and belief,<br>
+    Founder, Sanchay Token</p>
   </section>
 
   <footer>
-    &copy; 2025 SANCHAY Vault. All rights reserved. | Powered by decentralized community.<br />
-    Contact: info24@sanchaytoken.xyz
+    &copy; 2025 SANCHAY Vault. All rights reserved. | Contact: info24@sanchaytoken.xyz
   </footer>
-
 </body>
 </html>
