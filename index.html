@@ -5,12 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SANCHAY Vault - Save. Hold. Grow.</title>
   <link rel="icon" href="final_logo.png" type="image/png" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+
   <style>
     * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
       scroll-behavior: smooth;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Bebas Neue', sans-serif;
     }
 
     body {
@@ -40,6 +49,11 @@
       color: #00ffe0;
       text-decoration: none;
       font-weight: 600;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: gold;
     }
 
     .hero {
@@ -53,22 +67,22 @@
     }
 
     .hero h1 {
-      font-size: 3rem;
+      font-size: 3.5rem;
       color: gold;
       text-shadow: 0 0 8px #ffcc00;
     }
 
     .hero p {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       margin-top: 10px;
       color: #c0f8ff;
     }
 
-    .hero .buttons {
+    .buttons {
       margin-top: 30px;
     }
 
-    .hero .buttons a {
+    .buttons a {
       padding: 12px 24px;
       margin: 10px;
       background: rgba(255, 255, 255, 0.1);
@@ -79,26 +93,27 @@
       transition: all 0.3s ease;
     }
 
-    .hero .buttons a:hover {
+    .buttons a:hover {
       background: #00ffe0;
       color: #000;
       box-shadow: 0 0 10px #00ffe0;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
       border-radius: 16px;
       padding: 30px;
       margin: 60px auto;
       max-width: 1000px;
-      box-shadow: 0 0 10px #00ffe0;
+      box-shadow: 0 0 20px #00ffe0;
     }
 
     .card h2 {
       color: gold;
       margin-bottom: 20px;
       text-align: center;
+      font-size: 2rem;
     }
 
     footer {
@@ -110,13 +125,15 @@
     }
 
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2rem; }
-      .hero p { font-size: 1rem; }
+      .hero h1 { font-size: 2.5rem; }
+      .hero p { font-size: 1.1rem; }
     }
   </style>
 </head>
+
 <body>
 
+  <!-- Header -->
   <header>
     <img src="final_logo.png" alt="SANCHAY Logo" />
     <nav>
@@ -128,6 +145,7 @@
     </nav>
   </header>
 
+  <!-- Hero Section -->
   <section class="hero">
     <h1>Save. Hold. Grow.</h1>
     <p>Vault your future with SANCHAY ($SNCY). Built on Solana. Powered by vision.</p>
@@ -137,6 +155,7 @@
     </div>
   </section>
 
+  <!-- Why Choose Section -->
   <section class="card">
     <h2>Why Choose SANCHAY?</h2>
     <p>
@@ -145,8 +164,9 @@
     </p>
   </section>
 
+  <!-- Footer -->
   <footer>
-    &copy; 2025 SANCHAY Vault. All rights reserved. | Powered by decentralized community.<br />
+    &copy; 2025 SANCHAY Vault. All rights reserved.<br />
     Contact: info24@sanchaytoken.xyz
   </footer>
 
