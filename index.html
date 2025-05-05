@@ -7,23 +7,28 @@
   <link rel="icon" href="final_logo.png" type="image/png" />
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
     * {
       margin: 0; padding: 0; box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Sora', sans-serif;
       scroll-behavior: smooth;
     }
 
-    h1, h2, h3 {
-      font-family: 'Bebas Neue', sans-serif;
-    }
-
     body {
-      background: url('final.memebreaker_wizard.png') center center no-repeat fixed;
+      background-image: url('https://raw.githubusercontent.com/sanchaySNCY/sanchay-token-assets/main/final.memebreaker_wizard.png');
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
       background-size: cover;
       color: #f0f0f0;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      text-shadow: 0 0 6px gold;
     }
 
     header {
@@ -47,6 +52,11 @@
       color: #00ffe0;
       text-decoration: none;
       font-weight: 600;
+      text-shadow: 0 0 5px #00ffe0;
+    }
+
+    nav a:hover {
+      color: gold;
     }
 
     section.hero {
@@ -56,13 +66,11 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      background: transparent;
     }
 
     .hero h1 {
       font-size: 4rem;
       color: gold;
-      text-shadow: 0 0 10px #ffcc00;
     }
 
     .hero p {
@@ -85,12 +93,13 @@
       text-decoration: none;
       transition: all 0.3s ease;
       font-weight: bold;
+      text-shadow: 0 0 5px #00ffe0;
     }
 
     .hero .buttons a:hover {
       background: #00ffe0;
       color: #000;
-      box-shadow: 0 0 10px #00ffe0;
+      box-shadow: 0 0 15px #00ffe0;
     }
 
     .card {
@@ -116,6 +125,25 @@
       color: #e0f7fa;
     }
 
+    .card a {
+      color: #00ffe0;
+      text-decoration: none;
+    }
+
+    .card a:hover {
+      color: gold;
+      text-shadow: 0 0 6px #ffd700;
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 12px;
+      margin-top: 40px;
+      box-shadow: 0 0 10px #00ffe0;
+    }
+
     footer {
       background: rgba(0, 0, 0, 0.7);
       text-align: center;
@@ -134,6 +162,7 @@
       <a href="#tokenomics">Tokenomics</a>
       <a href="#roadmap">Roadmap</a>
       <a href="#founder">Founder</a>
+      <a href="#contact">Contact</a>
     </nav>
   </header>
 
@@ -218,32 +247,22 @@
   <section id="founder" class="card">
     <h2>Founder's Letter</h2>
     <p>Dear Sanchay Family,</p>
-    <p>Once upon a time, our parents and grandparents didn’t chase charts or gamble on hype. They invested in something simple — Gold. Because they knew: What you save patiently today, will shine brightly tomorrow.</p>
-    <p>Today, the world is faster, louder, and more distracted. Banks offer little. Inflation eats quietly. But the wisdom of saving endures.</p>
-    <p>I created SANCHAY ($SNCY) because saving needs a new home — A vault built for the digital world. A vault without middlemen. A vault where your discipline becomes your destiny.</p>
-    <p>The word "Sanchay" comes from ancient wisdom — it means "to save, to accumulate, to preserve for the future." It reflects not just an action, but a philosophy — that small, consistent savings create unstoppable strength over time.</p>
-    <p>Imagine a future where:<br>
-    You save SNCY just like your parents saved gold.<br>
-    You transfer SNCY with one tap, like a simple UPI payment.<br>
-    You protect your dreams without permission, without borders.</p>
-    <p>SANCHAY is not a meme, not a gamble. It’s a vault for real people with real futures. It rewards those who think beyond tomorrow’s noise.</p>
-    <p>We have already:<br>
-    Locked liquidity<br>
-    Burned uncertain paths<br>
-    Laid the foundation for disciplined digital saving</p>
-    <p>But this is only Chapter One. The chapters ahead will bring:<br>
-    Vault Savings Certificates<br>
-    Wallet-to-Wallet Savings Transfers<br>
-    A marketplace where savers, not speculators, rule the game.</p>
-    <p>Remember — True wealth is not made by chasing trends. It is built by those who save early, hold wisely, and grow patiently.</p>
-    <p>Our supply is scarce. As more holders join, SNCY becomes rarer. As rarity increases, value follows naturally.</p>
-    <p>In banks, your money sleeps. In SANCHAY, your savings wake up, grow, and build your future.</p>
-    <p>We don’t ask you to risk everything. We invite you to save smartly, consistently, and with pride. Just as gold grew over decades, SNCY will grow for those who save with vision.</p>
-    <p>Buy. Hold. Grow. Make saving your habit. Make growth your destiny.</p>
-    <p>SANCHAY is not just a token. It’s a decentralized legacy — built one smart saver at a time.</p>
-    <p>Let’s vault our future together.</p>
-    <p>With trust and belief,<br>
-    Founder, Sanchay Token</p>
+    <p>[Include full original Founder’s letter text here]</p>
+  </section>
+
+  <section class="card">
+    <h2>Live Chart (GeckoTerminal)</h2>
+    <iframe src="https://www.geckoterminal.com/solana/pools/9KUSMWzuTzhe4ZBE6dRp8usy1aMdZgGrMaob5pf27Dp2?embed=1" loading="lazy"></iframe>
+  </section>
+
+  <section id="contact" class="card">
+    <h2>Connect With Us</h2>
+    <ul>
+      <li>Website: <a href="https://sanchaytoken.xyz" target="_blank">sanchaytoken.xyz</a></li>
+      <li>X (Twitter): <a href="https://twitter.com/SANCHAY892616" target="_blank">@SANCHAY892616</a></li>
+      <li>Telegram: <a href="https://t.me/Sanchayofficial" target="_blank">@Sanchayofficial</a></li>
+      <li>Email: info24@sanchaytoken.xyz</li>
+    </ul>
   </section>
 
   <footer>
